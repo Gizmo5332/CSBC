@@ -1,0 +1,1909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Community Southern Baptist Church | Fair Grove, Missouri</title>
+<meta name="description" content="A family of imperfect people, coming together, to worship a perfect God. Community Southern Baptist Church — Fair Grove, Missouri." />
+
+<!-- React CDN -->
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --navy:       #162040;
+    --navy-mid:   #1e2d52;
+    --navy-light: #243460;
+    --gold:       #c9a84c;
+    --gold-light: #e8c97a;
+    --cream:      #f5f0e8;
+    --white:      #ffffff;
+    --gray-light: #e8eaf0;
+    --gray:       #8a93a8;
+    --text-body:  #d0d6e8;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body:    'Source Sans 3', system-ui, sans-serif;
+    --radius:     8px;
+    --shadow:     0 4px 24px rgba(0,0,0,0.3);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--navy);
+    color: var(--text-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HEADER ── */
+  .site-header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(22, 32, 64, 0.97);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+  .header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .logo-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .logo-cross {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+  }
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+  }
+  .logo-text .l1 {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .logo-text .l2 {
+    font-size: 10px;
+    color: var(--gray);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .desktop-nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .nav-link {
+    background: none;
+    border: none;
+    color: var(--text-body);
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: color 0.2s, background 0.2s;
+    letter-spacing: 0.03em;
+  }
+  .nav-link:hover { color: var(--gold); background: rgba(201,168,76,0.08); }
+  .nav-link.active { color: var(--gold); }
+  .nav-cta {
+    background: var(--gold);
+    color: var(--navy);
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: var(--radius);
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-left: 8px;
+  }
+  .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .hamburger {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--gold);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+  .mobile-menu {
+    display: none;
+    flex-direction: column;
+    background: var(--navy-mid);
+    border-top: 1px solid rgba(201,168,76,0.15);
+    padding: 12px 20px 20px;
+    gap: 4px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-nav-link {
+    background: none;
+    border: none;
+    color: var(--text-body);
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 500;
+    padding: 10px 0;
+    text-align: left;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    transition: color 0.2s;
+  }
+  .mobile-nav-link:hover, .mobile-nav-link.active { color: var(--gold); }
+  .mobile-cta {
+    margin-top: 12px;
+    background: var(--gold);
+    color: var(--navy);
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 700;
+    padding: 12px;
+    border-radius: var(--radius);
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 768px) {
+    .desktop-nav { display: none; }
+    .hamburger { display: flex; }
+  }
+
+  /* ── PAGE WRAPPER ── */
+  .page { padding-top: 64px; }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 92dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    background: linear-gradient(160deg, #0d1630 0%, #1a2744 40%, #1e3060 100%);
+  }
+  .hero-bg-pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image:
+      repeating-linear-gradient(45deg, var(--gold) 0, var(--gold) 1px, transparent 0, transparent 50%);
+    background-size: 24px 24px;
+  }
+  .hero-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 40px 24px;
+    max-width: 760px;
+  }
+  .hero-eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.4);
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 8vw, 72px);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.05;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+  .hero-title .gold { color: var(--gold); }
+  .hero-subtitle {
+    font-family: var(--font-display);
+    font-size: clamp(16px, 3vw, 22px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--text-body);
+    margin-bottom: 32px;
+    line-height: 1.5;
+  }
+  .hero-tagline {
+    font-size: 15px;
+    color: var(--gray);
+    margin-bottom: 40px;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero-ctas {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--navy);
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 700;
+    padding: 13px 28px;
+    border-radius: var(--radius);
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 13px 28px;
+    border-radius: var(--radius);
+    border: 1px solid rgba(255,255,255,0.3);
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--gold); background: rgba(201,168,76,0.08); }
+  .hero-scroll {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    color: var(--gray);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    animation: bounce 2s infinite;
+  }
+  .hero-scroll svg { opacity: 0.5; }
+  @keyframes bounce {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* ── SECTION COMMONS ── */
+  .section { padding: 80px 24px; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .section-sub {
+    font-size: 16px;
+    color: var(--text-body);
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 48px;
+  }
+  .divider {
+    width: 48px;
+    height: 3px;
+    background: var(--gold);
+    border-radius: 2px;
+    margin: 16px 0 40px;
+  }
+  .alt-bg { background: var(--navy-mid); }
+  .dark-bg { background: #0d1630; }
+
+  /* ── KNOW GROW GO STRIP ── */
+  .kgg-strip {
+    background: var(--gold);
+    padding: 0;
+  }
+  .kgg-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .kgg-item {
+    padding: 28px 32px;
+    text-align: center;
+    border-right: 1px solid rgba(22,32,64,0.15);
+  }
+  .kgg-item:last-child { border-right: none; }
+  .kgg-word {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--navy);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .kgg-desc {
+    font-size: 13px;
+    color: rgba(22,32,64,0.7);
+    font-weight: 500;
+  }
+  @media (max-width: 500px) {
+    .kgg-inner { grid-template-columns: 1fr; }
+    .kgg-item { border-right: none; border-bottom: 1px solid rgba(22,32,64,0.15); }
+    .kgg-item:last-child { border-bottom: none; }
+  }
+
+  /* ── SCHEDULE ── */
+  .schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .schedule-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: var(--radius);
+    padding: 24px;
+    text-align: center;
+    transition: border-color 0.2s;
+  }
+  .schedule-card:hover { border-color: rgba(201,168,76,0.5); }
+  .schedule-time {
+    font-family: var(--font-display);
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 6px;
+  }
+  .schedule-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
+  }
+  .schedule-note {
+    font-size: 12px;
+    color: var(--gray);
+  }
+
+  /* ── QUICK CTAS ── */
+  .quick-ctas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .quick-card {
+    background: var(--navy-light);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: var(--radius);
+    padding: 28px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .quick-card:hover {
+    background: var(--navy-mid);
+    border-color: rgba(201,168,76,0.3);
+    transform: translateY(-3px);
+  }
+  .quick-icon { font-size: 28px; }
+  .quick-label {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--white);
+  }
+  .quick-sub { font-size: 13px; color: var(--gray); }
+
+  /* ── CHILDREN CALLOUT ── */
+  .children-banner {
+    background: linear-gradient(135deg, var(--navy-light) 0%, #2a3d70 100%);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 12px;
+    padding: 40px 32px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .children-text { flex: 1; min-width: 220px; }
+  .children-title {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  .children-sub { font-size: 15px; color: var(--text-body); margin-bottom: 20px; }
+  .children-badges {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .badge {
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.3);
+    color: var(--gold);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.04em;
+  }
+  .children-emoji { font-size: 64px; flex-shrink: 0; }
+
+  /* ── SERMON ── */
+  .sermon-placeholder {
+    background: var(--navy-light);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    aspect-ratio: 16/9;
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .sermon-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, rgba(201,168,76,0.05) 0%, transparent 60%);
+  }
+  .sermon-placeholder:hover { border-color: rgba(201,168,76,0.4); }
+  .play-btn {
+    width: 64px;
+    height: 64px;
+    background: var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
+  .play-btn::after {
+    content: '';
+    border-style: solid;
+    border-width: 10px 0 10px 18px;
+    border-color: transparent transparent transparent var(--navy);
+    margin-left: 3px;
+  }
+  .sermon-label {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--white);
+    position: relative;
+    z-index: 1;
+  }
+  .sermon-sub { font-size: 13px; color: var(--gray); position: relative; z-index: 1; }
+
+  /* ── EVENTS ── */
+  .events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .event-card {
+    background: var(--navy-light);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: transform 0.15s, border-color 0.2s;
+  }
+  .event-card:hover { transform: translateY(-3px); border-color: rgba(201,168,76,0.3); }
+  .event-date-bar {
+    background: var(--gold);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .event-month {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--navy);
+  }
+  .event-day {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--navy);
+    line-height: 1;
+  }
+  .event-body { padding: 18px; }
+  .event-title {
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+  .event-desc { font-size: 13px; color: var(--gray); line-height: 1.5; }
+
+  /* ── PRAYER ── */
+  .prayer-form-wrap {
+    background: var(--navy-light);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 12px;
+    padding: 40px 32px;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  .form-group { margin-bottom: 20px; }
+  .form-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-body);
+    margin-bottom: 7px;
+    letter-spacing: 0.03em;
+  }
+  .form-input, .form-textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: var(--radius);
+    padding: 11px 14px;
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 15px;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  .form-input:focus, .form-textarea:focus {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.05);
+  }
+  .form-textarea { resize: vertical; min-height: 120px; }
+  .form-hint { font-size: 12px; color: var(--gray); margin-top: 5px; }
+
+  /* ── CHURCH IDENTITY (ABOUT) ── */
+  .identity-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .identity-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: var(--radius);
+    padding: 28px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .identity-card:hover {
+    border-color: rgba(201,168,76,0.4);
+    background: rgba(201,168,76,0.04);
+  }
+  .identity-scripture {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .identity-name {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+  .identity-desc { font-size: 14px; color: var(--text-body); line-height: 1.6; }
+
+  /* ── STAFF ── */
+  .staff-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  .staff-card {
+    background: var(--navy-light);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.15s;
+  }
+  .staff-card:hover { transform: translateY(-3px); }
+  .staff-photo {
+    width: 100%;
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, var(--navy-mid) 0%, var(--navy-light) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    border-bottom: 2px solid rgba(201,168,76,0.2);
+  }
+  .staff-body { padding: 20px 16px; }
+  .staff-name {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+  .staff-role {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .staff-bio { font-size: 13px; color: var(--gray); line-height: 1.55; }
+
+  /* ── BELIEVE ── */
+  .believe-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .believe-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 14px 16px;
+    background: rgba(255,255,255,0.03);
+    border-radius: var(--radius);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .believe-check {
+    width: 20px;
+    height: 20px;
+    background: var(--gold);
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+  }
+  .believe-check::after {
+    content: '';
+    width: 5px;
+    height: 9px;
+    border-right: 2px solid var(--navy);
+    border-bottom: 2px solid var(--navy);
+    transform: rotate(45deg) translate(-1px, -1px);
+  }
+  .believe-text { font-size: 14px; color: var(--text-body); line-height: 1.5; }
+  .believe-ref { font-size: 12px; color: var(--gold); margin-top: 3px; }
+
+  /* ── ACCORDION (CONNECT MINISTRIES) ── */
+  .accordion { display: flex; flex-direction: column; gap: 8px; }
+  .acc-item {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .acc-item.open { border-color: rgba(201,168,76,0.3); }
+  .acc-header {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    text-align: left;
+    gap: 12px;
+  }
+  .acc-title {
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--white);
+  }
+  .acc-arrow {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    color: var(--gold);
+    transition: transform 0.3s;
+  }
+  .acc-item.open .acc-arrow { transform: rotate(180deg); }
+  .acc-body {
+    padding: 0 20px 18px;
+    font-size: 14px;
+    color: var(--text-body);
+    line-height: 1.65;
+    display: none;
+  }
+  .acc-item.open .acc-body { display: block; }
+
+  /* ── GOSPEL ── */
+  .gospel-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: 640px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .gospel-step {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    padding-bottom: 40px;
+    position: relative;
+  }
+  .gospel-step:last-child { padding-bottom: 0; }
+  .step-number {
+    width: 44px;
+    height: 44px;
+    background: var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--navy);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .gospel-step:not(:last-child) .step-number::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: calc(100% + 40px - 44px);
+    background: rgba(201,168,76,0.25);
+    margin-top: 8px;
+  }
+  .step-content { padding-top: 8px; flex: 1; }
+  .step-title {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  .step-text { font-size: 15px; color: var(--text-body); line-height: 1.7; }
+  .step-verse {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── RESOURCES ── */
+  .resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+  }
+  .resource-card {
+    background: var(--navy-light);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.15s;
+    text-decoration: none;
+  }
+  .resource-card:hover { border-color: rgba(201,168,76,0.35); transform: translateY(-2px); }
+  .resource-icon { font-size: 32px; }
+  .resource-title {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--white);
+  }
+  .resource-desc { font-size: 13px; color: var(--gray); line-height: 1.5; }
+  .resource-link {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-top: auto;
+  }
+
+  /* ── GIVE ── */
+  .give-hero {
+    text-align: center;
+    max-width: 560px;
+    margin: 0 auto 48px;
+  }
+  .give-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .give-card {
+    background: var(--navy-light);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    text-align: center;
+    transition: border-color 0.2s;
+  }
+  .give-card:hover { border-color: rgba(201,168,76,0.3); }
+  .give-card-icon { font-size: 36px; margin-bottom: 12px; }
+  .give-card-title {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  .give-card-text { font-size: 14px; color: var(--gray); line-height: 1.55; margin-bottom: 16px; }
+
+  /* ── FOOTER ── */
+  .site-footer {
+    background: #0a1020;
+    border-top: 1px solid rgba(201,168,76,0.2);
+    padding: 56px 24px 32px;
+  }
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 48px;
+  }
+  .footer-brand .logo-wrap { margin-bottom: 16px; }
+  .footer-tagline {
+    font-size: 14px;
+    color: var(--gray);
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-style: italic;
+  }
+  .footer-socials { display: flex; gap: 12px; }
+  .social-btn {
+    width: 36px;
+    height: 36px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-decoration: none;
+  }
+  .social-btn:hover { background: rgba(201,168,76,0.2); }
+  .footer-col h4 {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+  .footer-col p, .footer-col a {
+    font-size: 14px;
+    color: var(--gray);
+    line-height: 1.7;
+    display: block;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--gold); }
+  .footer-times { display: flex; flex-direction: column; gap: 8px; }
+  .footer-time-row { display: flex; justify-content: space-between; gap: 8px; }
+  .footer-time-label { font-size: 13px; color: var(--gray); }
+  .footer-time-val { font-size: 13px; color: var(--white); font-weight: 600; }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer-copy { font-size: 12px; color: var(--gray); }
+  .footer-sbc { font-size: 12px; color: var(--gray); }
+  .footer-sbc a { color: var(--gold); text-decoration: none; }
+
+  @media (max-width: 768px) {
+    .footer-top { grid-template-columns: 1fr; gap: 32px; }
+    .section { padding: 60px 20px; }
+    .children-banner { flex-direction: column; text-align: center; }
+    .children-emoji { display: none; }
+    .prayer-form-wrap { padding: 28px 20px; }
+  }
+
+  /* ── PLAN A VISIT SECTION ── */
+  .visit-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .visit-info h3 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+  .visit-info p { font-size: 15px; color: var(--text-body); line-height: 1.7; margin-bottom: 20px; }
+  .visit-detail {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+    align-items: flex-start;
+  }
+  .visit-detail-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .visit-detail-text { font-size: 14px; color: var(--text-body); line-height: 1.5; }
+  @media (max-width: 700px) {
+    .visit-wrap { grid-template-columns: 1fr; }
+  }
+
+  /* ── CONNECT GROUPS ── */
+  .cg-card {
+    background: linear-gradient(135deg, var(--navy-light) 0%, #253a6b 100%);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 12px;
+    padding: 36px 32px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: center;
+  }
+  .cg-card h3 {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  .cg-card p { font-size: 15px; color: var(--text-body); line-height: 1.6; }
+  @media (max-width: 600px) {
+    .cg-card { grid-template-columns: 1fr; }
+  }
+
+  /* ── MISSIONS CARD ── */
+  .missions-card {
+    background: var(--navy-light);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px;
+    padding: 32px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .missions-half { }
+  .missions-half h4 {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .missions-half p { font-size: 14px; color: var(--text-body); line-height: 1.6; }
+  @media (max-width: 600px) {
+    .missions-card { grid-template-columns: 1fr; }
+  }
+
+  /* ── VOLUNTEER CARD ── */
+  .volunteer-card {
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 12px;
+    padding: 32px;
+    text-align: center;
+  }
+  .volunteer-card h3 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  .volunteer-card p { font-size: 15px; color: var(--text-body); margin-bottom: 20px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState } = React;
+
+// ── DATA ──
+const NAV_ITEMS = ['Home','About','Gospel','Connect','Resources','Give'];
+
+const MINISTRIES = [
+  { title: 'Youth Ministry', body: 'Led by Justin & Jessica Rice, our youth ministry exists to preach and teach the gospel to young adults in a welcoming, energetic environment. We attend school functions, host events, and walk alongside students through life.' },
+  { title: 'Men\'s Ministry', body: 'A place for men to grow together in faith, accountability, and brotherhood. We study God\'s Word, serve together, and challenge one another to lead well — in our homes, workplaces, and community.' },
+  { title: 'Women\'s Ministry', body: 'Our women\'s ministry gathers women of all ages to grow in community and in their faith. Through Bible study, fellowship, and service, we encourage one another to live out God\'s call on our lives.' },
+  { title: 'Music Ministry', body: 'Worship is central to who we are. Our music ministry leads the congregation in both contemporary and traditional worship, creating an atmosphere where we can encounter God together each Sunday.' },
+  { title: 'Children\'s Ministry', body: 'We believe in the next generation. Our children\'s ministry provides a safe, nurturing environment where kids discover who God is in age-appropriate, engaging ways. We\'d love to have your children with us.' },
+  { title: 'PreK – 5th Grade', body: 'From preschool through elementary school, we have dedicated programming designed to help your child build a strong foundation of faith. Our teachers and volunteers are passionate about kids knowing Jesus.' },
+  { title: 'Discipleship', body: 'Discipleship is the core of our mission. We offer structured pathways to help every believer grow deeper in their walk with Christ — through classes, mentoring relationships, and small group study.' },
+];
+
+const BELIEFS = [
+  { text: 'The Bible is inspired by God and is without error', ref: '2 Timothy 3:16' },
+  { text: 'The virgin birth of Jesus Christ', ref: 'Matthew 1:18' },
+  { text: 'The Holy Trinity — Father, Son, and Holy Spirit', ref: '2 Corinthians 13:14' },
+  { text: 'The substitutionary death of Jesus on the cross', ref: '1 Peter 2:24' },
+  { text: 'The bodily resurrection of Jesus Christ', ref: '1 Corinthians 15:3-4' },
+  { text: 'Jesus will come again', ref: 'Acts 1:11' },
+  { text: 'All people are sinful and in need of a Savior', ref: 'Romans 3:23' },
+  { text: 'Salvation is by faith alone, through grace alone', ref: 'Ephesians 2:8-9' },
+  { text: 'The eternal security of the believer', ref: '1 John 5:11-13' },
+  { text: 'A literal heaven for the saved and a literal hell for those who reject Christ', ref: 'John 14:1-6' },
+];
+
+const IDENTITY = [
+  { scripture: 'James 1', name: 'A Church That Acts', desc: 'We hear AND do the word of God. We pursue widows, orphans, and the people often overlooked by our society.' },
+  { scripture: 'Revelation 5', name: 'A Church of Worshippers', desc: 'We strive to be a diverse and unified body — every voice joined together in worship of a perfect God.' },
+  { scripture: 'Titus 2', name: 'A Multi-Generational Church', desc: 'Older and younger believers walking together, helping one another follow Jesus across every season of life.' },
+  { scripture: 'Matthew 28', name: 'Disciples Making Disciples', desc: 'The Great Commission is not optional. We exist to make disciples — and to equip those disciples to make more.' },
+  { scripture: 'Luke 15', name: 'Grace-Filled & Gospel-Centered', desc: 'The elder brother and the younger brother can both celebrate Jesus here. Grace is the ground we all stand on.' },
+];
+
+const STAFF = [
+  { name: 'Dustin Lair', role: 'Lead Pastor', emoji: '✝️', bio: 'Dustin has served as Lead Pastor since 2004. Called to ministry at 17, his passion is to be the spiritual mentor he never had — which is why disciples making disciples is everything at CSBC.' },
+  { name: 'Truman Baxter', role: 'Associate Pastor', emoji: '🌍', bio: 'At CSBC since 2010, Truman oversees national and international missions as well as community outreach — passionate about reaching people both near and far.' },
+  { name: 'Aaron McGuire', role: 'Lay Pastor', emoji: '📖', bio: 'Aaron holds a Master\'s in professional counseling and runs a Christian counseling practice. He serves the church through pastoral care and professional biblical counseling.' },
+  { name: 'Justin & Jessica Rice', role: 'Youth Directors', emoji: '🎯', bio: 'Justin preaches and teaches the gospel to students. Jessica\'s passion is hospitality and making every youth member feel welcome. They\'ve been part of CSBC since 2015.' },
+];
+
+const RESOURCES_DATA = [
+  { icon: '▶️', title: 'Watch Messages', desc: 'Catch up on recent sermons and teachings from our pastors on our YouTube channel.', link: 'Watch on YouTube →', href: 'https://www.youtube.com/@csbcfairgrove1594' },
+  { icon: '📋', title: 'Online Bulletin', desc: 'View this week\'s bulletin for announcements, upcoming events, and worship notes.', link: 'View Bulletin →', href: 'https://www.communitysbc.org/online-bulletin' },
+  { icon: '💻', title: 'Facebook LIVE', desc: 'Our 11AM Sunday service streams live every week on Facebook. Join us from anywhere.', link: 'Watch on Facebook →', href: 'https://www.facebook.com/CSBCFG' },
+  { icon: '💰', title: 'Online Giving', desc: 'Give securely online through Church Center. Your generosity makes ministry possible.', link: 'Give Now →', href: 'https://www.communitysbc.org/online-giving' },
+  { icon: '🧠', title: 'Counseling', desc: 'Aaron McGuire offers professional Christian counseling. Faith-based, confidential, and compassionate.', link: 'Learn More →', href: 'https://www.communitysbc.org/counseling' },
+  { icon: '👕', title: 'Merch Shop', desc: 'Support the church and represent your community with CSBC gear.', link: 'Shop Now →', href: 'https://www.communitysbc.org/copy-of-church-center' },
+];
+
+const EVENTS = [
+  { month: 'JUN', day: '8', title: 'Sunday Morning Worship', desc: 'Join us for Early Worship at 9AM, Sunday School at 10AM, or Second Service at 11AM.' },
+  { month: 'JUN', day: '15', title: 'Connect Group Meeting', desc: 'Connect Groups meet weekly or bi-weekly. Find your group and grow in community.' },
+  { month: 'JUN', day: '22', title: 'Community Outreach', desc: 'We regularly serve our surrounding community. Stay tuned for upcoming service opportunities.' },
+];
+
+// ── CROSS LOGO SVG ──
+function CrossLogo({ size = 36 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" className="logo-cross">
+      <rect x="15" y="4" width="6" height="28" rx="1.5" fill="#c9a84c"/>
+      <rect x="6" y="12" width="24" height="6" rx="1.5" fill="#c9a84c"/>
+    </svg>
+  );
+}
+
+// ── ACCORDION ITEM ──
+function AccItem({ title, body }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className={`acc-item${open ? ' open' : ''}`}>
+      <button className="acc-header" onClick={() => setOpen(!open)}>
+        <span className="acc-title">{title}</span>
+        <svg className="acc-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">
+          <polyline points="5 8 10 13 15 8"/>
+        </svg>
+      </button>
+      <div className="acc-body">{body}</div>
+    </div>
+  );
+}
+
+// ── HEADER ──
+function Header({ page, setPage }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  return (
+    <header className="site-header">
+      <div className="header-inner">
+        <div className="logo-wrap" onClick={() => { setPage('Home'); setMenuOpen(false); }}>
+          <CrossLogo size={36} />
+          <div className="logo-text">
+            <span className="l1">Community SBC</span>
+            <span className="l2">Fair Grove, Missouri</span>
+          </div>
+        </div>
+        <nav className="desktop-nav">
+          {NAV_ITEMS.map(n => (
+            <button key={n} className={`nav-link${page === n ? ' active' : ''}`} onClick={() => setPage(n)}>{n}</button>
+          ))}
+          <button className="nav-cta" onClick={() => setPage('Connect')}>Plan a Visit</button>
+        </nav>
+        <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
+          <span/><span/><span/>
+        </button>
+      </div>
+      <div className={`mobile-menu${menuOpen ? ' open' : ''}`}>
+        {NAV_ITEMS.map(n => (
+          <button key={n} className={`mobile-nav-link${page === n ? ' active' : ''}`} onClick={() => { setPage(n); setMenuOpen(false); }}>{n}</button>
+        ))}
+        <button className="mobile-cta" onClick={() => { setPage('Connect'); setMenuOpen(false); }}>Plan a Visit</button>
+      </div>
+    </header>
+  );
+}
+
+// ── HOME ──
+function HomePage({ setPage }) {
+  return (
+    <div>
+      {/* HERO */}
+      <section className="hero">
+        <div className="hero-bg-pattern"/>
+        <div className="hero-glow"/>
+        <div className="hero-content">
+          <span className="hero-eyebrow">Fair Grove, Missouri</span>
+          <h1 className="hero-title">Disciples<br/><span className="gold">Making</span><br/>Disciples</h1>
+          <p className="hero-subtitle">"A family of imperfect people,<br/>coming together, to worship a perfect God."</p>
+          <p className="hero-tagline">You don't have to have it all together. You just have to show up.</p>
+          <div className="hero-ctas">
+            <button className="btn-primary" onClick={() => setPage('Connect')}>Plan a Visit</button>
+            <button className="btn-outline" onClick={() => setPage('Gospel')}>The Gospel</button>
+          </div>
+        </div>
+        <div className="hero-scroll">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
+            <polyline points="4 6 8 10 12 6"/>
+          </svg>
+        </div>
+      </section>
+
+      {/* KNOW GROW GO */}
+      <div className="kgg-strip">
+        <div className="kgg-inner">
+          {[
+            { word: 'Know', desc: 'Every person knowing Jesus' },
+            { word: 'Grow', desc: 'Cultivating your faith together' },
+            { word: 'Go', desc: 'Reaching the lost near and far' },
+          ].map(k => (
+            <div key={k.word} className="kgg-item">
+              <span className="kgg-word">{k.word}</span>
+              <span className="kgg-desc">{k.desc}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* SCHEDULE */}
+      <section className="section alt-bg">
+        <div className="section-inner">
+          <p className="section-label">Join Us</p>
+          <h2 className="section-title">Sunday Morning Schedule</h2>
+          <div className="divider"/>
+          <div className="schedule-grid">
+            <div className="schedule-card">
+              <span className="schedule-time">9:00 AM</span>
+              <div className="schedule-name">Early Worship Service</div>
+              <div className="schedule-note">Traditional & contemporary worship</div>
+            </div>
+            <div className="schedule-card">
+              <span className="schedule-time">10:00 AM</span>
+              <div className="schedule-name">Sunday School</div>
+              <div className="schedule-note">All ages — kids, youth & adults</div>
+            </div>
+            <div className="schedule-card">
+              <span className="schedule-time">11:00 AM</span>
+              <div className="schedule-name">Second Worship Service</div>
+              <div className="schedule-note">Also streaming live on Facebook</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* QUICK CTAS */}
+      <section className="section">
+        <div className="section-inner">
+          <p className="section-label">Get Connected</p>
+          <h2 className="section-title">How Can We Help?</h2>
+          <div className="divider"/>
+          <div className="quick-ctas">
+            <div className="quick-card" onClick={() => setPage('Connect')}>
+              <span className="quick-icon">👋</span>
+              <span className="quick-label">New Here?</span>
+              <span className="quick-sub">Start here — plan your first visit</span>
+            </div>
+            <div className="quick-card" onClick={() => setPage('Give')}>
+              <span className="quick-icon">🙏</span>
+              <span className="quick-label">Give</span>
+              <span className="quick-sub">Support the mission</span>
+            </div>
+            <div className="quick-card" onClick={() => window.open('https://www.youtube.com/@csbcfairgrove1594','_blank')}>
+              <span className="quick-icon">▶️</span>
+              <span className="quick-label">Watch</span>
+              <span className="quick-sub">Sermons on YouTube</span>
+            </div>
+            <div className="quick-card" onClick={() => setPage('Connect')}>
+              <span className="quick-icon">🤝</span>
+              <span className="quick-label">Connect</span>
+              <span className="quick-sub">Find your place in community</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CHILDREN CALLOUT */}
+      <section className="section alt-bg">
+        <div className="section-inner">
+          <div className="children-banner">
+            <div className="children-text">
+              <h2 className="children-title">We've Got Your Kids Covered</h2>
+              <p className="children-sub">From infants to 5th graders, your children are in a safe, nurturing environment every Sunday while you worship. We believe in the next generation.</p>
+              <div className="children-badges">
+                <span className="badge">Childcare</span>
+                <span className="badge">PreK – 5th Grade</span>
+                <span className="badge">Youth Ministry</span>
+              </div>
+            </div>
+            <div className="children-emoji">👨‍👩‍👧‍👦</div>
+          </div>
+        </div>
+      </section>
+
+      {/* LATEST SERMON */}
+      <section className="section">
+        <div className="section-inner">
+          <p className="section-label">Recent Message</p>
+          <h2 className="section-title">Latest Sermon</h2>
+          <div className="divider"/>
+          <div className="sermon-placeholder" onClick={() => window.open('https://www.youtube.com/@csbcfairgrove1594','_blank')}>
+            <div className="play-btn"/>
+            <div className="sermon-label">Watch Our Latest Message</div>
+            <div className="sermon-sub">Opens on YouTube — @csbcfairgrove1594</div>
+          </div>
+        </div>
+      </section>
+
+      {/* EVENTS */}
+      <section className="section alt-bg">
+        <div className="section-inner">
+          <p className="section-label">What's Coming Up</p>
+          <h2 className="section-title">Upcoming Events</h2>
+          <div className="divider"/>
+          <div className="events-grid">
+            {EVENTS.map((e, i) => (
+              <div key={i} className="event-card">
+                <div className="event-date-bar">
+                  <div>
+                    <div className="event-month">{e.month}</div>
+                    <div className="event-day">{e.day}</div>
+                  </div>
+                </div>
+                <div className="event-body">
+                  <div className="event-title">{e.title}</div>
+                  <div className="event-desc">{e.desc}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* PRAYER REQUEST */}
+      <section className="section dark-bg">
+        <div className="section-inner">
+          <p className="section-label">Let Us Pray With You</p>
+          <h2 className="section-title" style={{textAlign:'center'}}>Submit a Prayer Request</h2>
+          <p style={{textAlign:'center', color:'var(--text-body)', marginBottom:'36px', maxWidth:'480px', margin:'0 auto 36px'}}>
+            You don't have to carry it alone. Share your request and our pastoral team will lift you up in prayer.
+          </p>
+          <div className="prayer-form-wrap">
+            <div className="form-group">
+              <label className="form-label">Your Name <span style={{color:'var(--gray)'}}>— optional</span></label>
+              <input className="form-input" type="text" placeholder="First name or anonymous" />
+            </div>
+            <div className="form-group">
+              <label className="form-label">Your Prayer Request</label>
+              <textarea className="form-textarea" placeholder="Share what's on your heart…"/>
+              <div className="form-hint">All requests are kept confidential within our pastoral team.</div>
+            </div>
+            <button className="btn-primary" style={{width:'100%'}}>Submit Prayer Request</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+// ── ABOUT ──
+function AboutPage() {
+  return (
+    <div>
+      <section className="hero" style={{minHeight:'40dvh'}}>
+        <div className="hero-bg-pattern"/>
+        <div className="hero-content" style={{paddingTop:'20px',paddingBottom:'20px'}}>
+          <span className="hero-eyebrow">Who We Are</span>
+          <h1 className="hero-title" style={{fontSize:'clamp(28px,6vw,52px)'}}>About CSBC</h1>
+          <p className="hero-subtitle">Fair Grove, Missouri · Since 2004</p>
+        </div>
+      </section>
+
+      {/* MISSION */}
+      <section className="section">
+        <div className="section-inner">
+          <p className="section-label">Our Mission</p>
+          <h2 className="section-title">Why We Exist</h2>
+          <div className="divider"/>
+          <div style={{maxWidth:'640px', marginBottom:'48px'}}>
+            <p style={{fontSize:'18px', fontFamily:'var(--font-display)', fontStyle:'italic', color:'var(--white)', lineHeight:'1.6', marginBottom:'20px'}}>
+              "Disciples Making Disciples."
+            </p>
+            <p style={{fontSize:'15px', color:'var(--text-body)', lineHeight:'1.8'}}>
+              Pastor Dustin Lair was saved at 14 and desperately wanted someone to disciple him — to walk alongside him and help him grow in the Lord. That person never came. So when God called him to ministry at 17, he made a decision: he would be the answer to anyone praying that same prayer. That conviction is the DNA of Community Southern Baptist Church.
+            </p>
+          </div>
+          <p className="section-label" style={{marginBottom:'20px'}}>Our Identity</p>
+          <div className="identity-grid">
+            {IDENTITY.map((id, i) => (
+              <div key={i} className="identity-card">
+                <div className="identity-scripture">{id.scripture}</div>
+                <div className="identity-name">{id.name}</div>
+                <div className="identity-desc">{id.desc}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* WHAT WE BELIEVE */}
+      <section className="section alt-bg">
+        <div className="section-inner">
+          <p className="section-label">Theology</p>
+          <h2 className="section-title">What We Believe</h2>
+          <div className="divider"/>
+          <p style={{fontSize:'15px', color:'var(--text-body)', maxWidth:'580px', marginBottom:'36px', lineHeight:'1.7'}}>
+            We are a Southern Baptist church affiliated with the Southern Baptist Convention, adhering to the Baptist Faith and Message 2000.
+          </p>
+          <div className="believe-list">
+            {BELIEFS.map((b, i) => (
+              <div key={i} className="believe-item">
+                <div className="believe-check"/>
+                <div>
+                  <div className="believe-text">{b.text}</div>
+                  <div className="believe-ref">{b.ref}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <a href="http://www.sbc.net/bfm2000/bfm2000.asp" target="_blank" rel="noreferrer" style={{color:'var(--gold)', fontSize:'14px', textDecoration:'none'}}>
+            Read the full Baptist Faith & Message 2000 →
+          </a>
+        </div>
+      </section>
+
+      {/* STAFF */}
+      <section className="section">
+        <div className="section-inner">
+          <p className="section-label">Leadership</p>
+          <h2 className="section-title">Meet Our Team</h2>
+          <div className="divider"/>
+          <div className="staff-grid">
+            {STAFF.map((s, i) => (
+              <div key={i} className="staff-card">
+                <div className="staff-photo">{s.emoji}</div>
+                <div className="staff-body">
+                  <div className="staff-name">{s.name}</div>
+                  <div className="staff-role">{s.role}</div>
+                  <div className="staff-bio">{s.bio}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SERVICE TIMES */}
+      <section className="section dark-bg">
+        <div className="section-inner">
+          <p className="section-label">Join Us</p>
+          <h2 className="section-title">Service Times</h2>
+          <div className="divider"/>
+          <div className="schedule-grid">
+            <div className="schedule-card"><span className="schedule-time">9:00 AM</span><div className="schedule-name">Early Worship</div></div>
+            <div className="schedule-card"><span className="schedule-time">10:00 AM</span><div className="schedule-name">Sunday School</div></div>
+            <div className="schedule-card"><span className="schedule-time">11:00 AM</span><div className="schedule-name">Second Service</div><div className="schedule-note">Live on Facebook</div></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+// ── GOSPEL ──
+function GospelPage({ setPage }) {
+  return (
+    <div>
+      <section className="hero" style={{minHeight:'40dvh'}}>
+        <div className="hero-bg-pattern"/>
+        <div className="hero-content" style={{paddingTop:'20px',paddingBottom:'20px'}}>
+          <span className="hero-eyebrow">The Most Important Question</span>
+          <h1 className="hero-title" style={{fontSize:'clamp(28px,6vw,52px)'}}>The Gospel</h1>
+          <p className="hero-subtitle">The good news that changes everything</p>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="section-inner">
+          <p style={{fontSize:'16px', color:'var(--text-body)', maxWidth:'600px', margin:'0 auto 60px', textAlign:'center', lineHeight:'1.8'}}>
+            The word "gospel" simply means good news. But to understand the good news, you first have to understand the problem.
+          </p>
+          <div className="gospel-steps">
+            <div className="gospel-step">
+              <div className="step-number">1</div>
+              <div className="step-content">
+                <div className="step-title">God Is Holy</div>
+                <div className="step-text">God created everything — including you — and He is perfect, holy, and good. He made us for relationship with Him. That's the world as it was meant to be.</div>
+              </div>
+            </div>
+            <div className="gospel-step">
+              <div className="step-number">2</div>
+              <div className="step-content">
+                <div className="step-title">We Are Separated From Him</div>
+                <div className="step-text">Every one of us has sinned — fallen short of God's perfect standard. Sin isn't just bad behavior; it's a broken relationship. And the consequence of sin is separation from God, now and eternally.</div>
+                <span className="step-verse">Romans 3:23 · Romans 6:23</span>
+              </div>
+            </div>
+            <div className="gospel-step">
+              <div className="step-number">3</div>
+              <div className="step-content">
+                <div className="step-title">Jesus Is the Answer</div>
+                <div className="step-text">God didn't leave us there. He sent His Son, Jesus Christ — fully God and fully human — who lived the perfect life we couldn't live, died on the cross in our place, and rose from the dead on the third day. He took the punishment we deserved.</div>
+                <span className="step-verse">1 Peter 2:24 · 1 Corinthians 15:3-4</span>
+              </div>
+            </div>
+            <div className="gospel-step">
+              <div className="step-number">4</div>
+              <div className="step-content">
+                <div className="step-title">Faith Is the Response</div>
+                <div className="step-text">This gift is not earned — it can't be. Salvation comes by grace through faith alone. That means turning from your sin and trusting in Jesus — not your own goodness — as the only way to be made right with God.</div>
+                <span className="step-verse">Ephesians 2:8-9 · John 14:6</span>
+              </div>
+            </div>
+            <div className="gospel-step">
+              <div className="step-number">5</div>
+              <div className="step-content">
+                <div className="step-title">You Are Not Alone</div>
+                <div className="step-text">Becoming a Christian is the beginning, not the end. We exist to walk alongside you. If you have questions, made a decision to follow Christ, or just want to talk — we'd love to hear from you.</div>
+              </div>
+            </div>
+          </div>
+
+          <div style={{textAlign:'center', marginTop:'60px', padding:'40px 32px', background:'var(--navy-light)', border:'1px solid rgba(201,168,76,0.25)', borderRadius:'12px', maxWidth:'480px', margin:'60px auto 0'}}>
+            <div style={{fontSize:'28px', marginBottom:'12px'}}>✝️</div>
+            <h3 style={{fontFamily:'var(--font-display)', fontSize:'22px', fontWeight:'700', color:'var(--white)', marginBottom:'10px'}}>Have Questions?</h3>
+            <p style={{fontSize:'14px', color:'var(--text-body)', marginBottom:'24px', lineHeight:'1.6'}}>You don't have to figure this out alone. Our pastoral team would love to talk with you — no pressure, just conversation.</p>
+            <button className="btn-primary" onClick={() => setPage('Connect')}>Talk to Someone →</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+// ── CONNECT ──
+function ConnectPage() {
+  return (
+    <div>
+      <section className="hero" style={{minHeight:'40dvh'}}>
+        <div className="hero-bg-pattern"/>
+        <div className="hero-content" style={{paddingTop:'20px',paddingBottom:'20px'}}>
+          <span className="hero-eyebrow">Get Involved</span>
+          <h1 className="hero-title" style={{fontSize:'clamp(28px,6vw,52px)'}}>Connect</h1>
+          <p className="hero-subtitle">Find your place in the community</p>
+        </div>
+      </section>
+
+      {/* MINISTRIES */}
+      <section className="section">
+        <div className="section-inner">
+          <p className="section-label">Get Involved</p>
+          <h2 className="section-title">Ministries</h2>
+          <div className="divider"/>
+          <div className="accordion">
+            {MINISTRIES.map((m, i) => <AccItem key={i} title={m.title} body={m.body} />)}
+          </div>
+        </div>
+      </section>
+
+      {/* CONNECT GROUPS */}
+      <section className="section alt-bg">
+        <div className="section-inner">
+          <p className="section-label">Community</p>
+          <h2 className="section-title">Connect Groups</h2>
+          <div className="divider"/>
+          <div className="cg-card">
+            <div>
+              <h3>Life Is Better Together</h3>
+              <p>Connect Groups are small groups of people meeting weekly or bi-weekly throughout the week. They exist for one reason: you were not meant to do life alone. Groups are a place to build real friendships, study Scripture together, and support one another through the highs and lows of life.</p>
+              <p style={{marginTop:'12px', fontSize:'14px', color:'var(--gray)'}}>Groups forming regularly. Contact us to find a group that fits your schedule.</p>
+            </div>
+            <button className="btn-primary" onClick={() => document.getElementById('visit-form')?.scrollIntoView({behavior:'smooth'})}>Find a Group →</button>
+          </div>
+        </div>
+      </section>
+
+      {/* MISSIONS */}
+      <section className="section">
+        <div className="section-inner">
+          <p className="section-label">Local & Global</p>
+          <h2 className="section-title">Missions</h2>
+          <div className="divider"/>
+          <div className="missions-card">
+            <div className="missions-half">
+              <h4>🏘️ Local Outreach</h4>
+              <p>We serve our surrounding community through intentional outreach — meeting physical and spiritual needs in Fair Grove and the surrounding areas. There are people right next door who need the gospel.</p>
+            </div>
+            <div className="missions-half">
+              <h4>🌍 Global Missions</h4>
+              <p>Overseen by Associate Pastor Truman Baxter, our global missions work trains, equips, and sends members to reach people across the globe with the gospel of Jesus Christ.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* VOLUNTEER */}
+      <section className="section alt-bg">
+        <div className="section-inner">
+          <div className="volunteer-card">
+            <div style={{fontSize:'36px', marginBottom:'12px'}}>🙌</div>
+            <h3>Volunteer Opportunities</h3>
+            <p>There is a place for you to serve at CSBC. Whether it's greeting, childcare, music, tech, or community service — your gifts are needed and wanted here.</p>
+            <button className="btn-primary">Learn More About Serving</button>
+          </div>
+        </div>
+      </section>
+
+      {/* PRAYER REQUEST */}
+      <section className="section dark-bg">
+        <div className="section-inner">
+          <p className="section-label">Let Us Pray With You</p>
+          <h2 className="section-title" style={{textAlign:'center'}}>Submit a Prayer Request</h2>
+          <p style={{textAlign:'center', color:'var(--text-body)', margin:'0 auto 36px', maxWidth:'480px', lineHeight:'1.7'}}>
+            Our pastoral team takes prayer seriously. Share your request and we will lift you up.
+          </p>
+          <div className="prayer-form-wrap">
+            <div className="form-group">
+              <label className="form-label">Your Name <span style={{color:'var(--gray)'}}>— optional</span></label>
+              <input className="form-input" type="text" placeholder="First name or anonymous"/>
+            </div>
+            <div className="form-group">
+              <label className="form-label">Your Request</label>
+              <textarea className="form-textarea" placeholder="Share what's on your heart…"/>
+              <div className="form-hint">Kept confidential within our pastoral team.</div>
+            </div>
+            <button className="btn-primary" style={{width:'100%'}}>Submit Prayer Request</button>
+          </div>
+        </div>
+      </section>
+
+      {/* PLAN A VISIT */}
+      <section className="section" id="visit-form">
+        <div className="section-inner">
+          <p className="section-label">First Time?</p>
+          <h2 className="section-title">Plan a Visit</h2>
+          <div className="divider"/>
+          <div className="visit-wrap">
+            <div className="visit-info">
+              <h3>What to Expect on Your First Sunday</h3>
+              <p>Walking into a new church can feel intimidating. We want you to know — you are welcome here exactly as you are. No dress code. No pressure. Just a community of imperfect people worshipping a perfect God.</p>
+              <div className="visit-detail">
+                <span className="visit-detail-icon">📍</span>
+                <div className="visit-detail-text">4686 State Highway CC<br/>Fair Grove, MO 65648</div>
+              </div>
+              <div className="visit-detail">
+                <span className="visit-detail-icon">🕒</span>
+                <div className="visit-detail-text">Services at 9:00 AM, 10:00 AM & 11:00 AM<br/>Every Sunday</div>
+              </div>
+              <div className="visit-detail">
+                <span className="visit-detail-icon">👶</span>
+                <div className="visit-detail-text">Childcare and children's programming available during all services</div>
+              </div>
+              <div className="visit-detail">
+                <span className="visit-detail-icon">📞</span>
+                <div className="visit-detail-text">(417) 689-1547 · csbcfg@gmail.com</div>
+              </div>
+            </div>
+            <div>
+              <div className="prayer-form-wrap" style={{margin:'0'}}>
+                <div className="form-group">
+                  <label className="form-label">Your Name</label>
+                  <input className="form-input" type="text" placeholder="First & last name"/>
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Email</label>
+                  <input className="form-input" type="email" placeholder="your@email.com"/>
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Phone <span style={{color:'var(--gray)'}}>— optional</span></label>
+                  <input className="form-input" type="tel" placeholder="(417) 000-0000"/>
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Questions or anything we should know?</label>
+                  <textarea className="form-textarea" placeholder="Optional…"/>
+                </div>
+                <button className="btn-primary" style={{width:'100%'}}>Send My Visit Info</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+// ── RESOURCES ──
+function ResourcesPage() {
+  return (
+    <div>
+      <section className="hero" style={{minHeight:'35dvh'}}>
+        <div className="hero-bg-pattern"/>
+        <div className="hero-content" style={{paddingTop:'20px',paddingBottom:'20px'}}>
+          <span className="hero-eyebrow">Tools & Links</span>
+          <h1 className="hero-title" style={{fontSize:'clamp(28px,6vw,52px)'}}>Resources</h1>
+          <p className="hero-subtitle">Everything you need, in one place</p>
+        </div>
+      </section>
+      <section className="section">
+        <div className="section-inner">
+          <div className="resources-grid">
+            {RESOURCES_DATA.map((r, i) => (
+              <a key={i} className="resource-card" href={r.href} target="_blank" rel="noreferrer">
+                <div className="resource-icon">{r.icon}</div>
+                <div className="resource-title">{r.title}</div>
+                <div className="resource-desc">{r.desc}</div>
+                <div className="resource-link">{r.link}</div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+// ── GIVE ──
+function GivePage() {
+  return (
+    <div>
+      <section className="hero" style={{minHeight:'35dvh'}}>
+        <div className="hero-bg-pattern"/>
+        <div className="hero-content" style={{paddingTop:'20px',paddingBottom:'20px'}}>
+          <span className="hero-eyebrow">Generosity</span>
+          <h1 className="hero-title" style={{fontSize:'clamp(28px,6vw,52px)'}}>Give</h1>
+          <p className="hero-subtitle">Your generosity makes ministry possible</p>
+        </div>
+      </section>
+      <section className="section">
+        <div className="section-inner">
+          <div className="give-hero">
+            <p className="section-label">Why We Give</p>
+            <h2 className="section-title">Giving Is an Act of Worship</h2>
+            <div className="divider" style={{margin:'16px auto 24px'}}/>
+            <p style={{fontSize:'16px', color:'var(--text-body)', lineHeight:'1.8'}}>
+              At CSBC, we believe giving is not an obligation — it's an act of worship. When we give, we trust God with what He's already given us, and we invest in a mission that matters for eternity. Every dollar given supports local ministry, global missions, and the work of making disciples right here in Fair Grove.
+            </p>
+          </div>
+          <div className="give-options">
+            <div className="give-card">
+              <div className="give-card-icon">💻</div>
+              <div className="give-card-title">Give Online</div>
+              <div className="give-card-text">Secure online giving through Church Center. One-time or recurring — set it up in minutes.</div>
+              <a href="https://www.communitysbc.org/online-giving" target="_blank" rel="noreferrer">
+                <button className="btn-primary" style={{width:'100%'}}>Give Online Now</button>
+              </a>
+            </div>
+            <div className="give-card">
+              <div className="give-card-icon">✉️</div>
+              <div className="give-card-title">Give by Mail</div>
+              <div className="give-card-text">Prefer a check? Make it out to Community Southern Baptist Church and mail to:</div>
+              <p style={{fontSize:'13px', color:'var(--text-body)', lineHeight:'1.7'}}>
+                PO Box 411<br/>Fair Grove, MO 65648
+              </p>
+            </div>
+            <div className="give-card">
+              <div className="give-card-icon">👕</div>
+              <div className="give-card-title">Merch Shop</div>
+              <div className="give-card-text">Support CSBC and represent your church community with official CSBC gear.</div>
+              <a href="https://www.communitysbc.org/copy-of-church-center" target="_blank" rel="noreferrer">
+                <button className="btn-outline" style={{width:'100%'}}>Visit the Shop</button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+// ── FOOTER ──
+function Footer({ setPage }) {
+  return (
+    <footer className="site-footer">
+      <div className="footer-inner">
+        <div className="footer-top">
+          <div className="footer-brand">
+            <div className="logo-wrap" onClick={() => setPage('Home')} style={{cursor:'pointer'}}>
+              <CrossLogo size={32}/>
+              <div className="logo-text">
+                <span className="l1">Community SBC</span>
+                <span className="l2">Fair Grove, Missouri</span>
+              </div>
+            </div>
+            <p className="footer-tagline">"A family of imperfect people, coming together,<br/>to worship a perfect God."</p>
+            <div className="footer-socials">
+              <a className="social-btn" href="https://www.facebook.com/CSBCFG" target="_blank" rel="noreferrer" title="Facebook">f</a>
+              <a className="social-btn" href="https://www.instagram.com/csbcfg/" target="_blank" rel="noreferrer" title="Instagram">ig</a>
+              <a className="social-btn" href="https://www.youtube.com/@csbcfairgrove1594" target="_blank" rel="noreferrer" title="YouTube">▶</a>
+              <a className="social-btn" href="https://twitter.com/csbcfg" target="_blank" rel="noreferrer" title="Twitter/X">𝕏</a>
+            </div>
+          </div>
+          <div className="footer-col">
+            <h4>Contact</h4>
+            <p>4686 State Highway CC<br/>Fair Grove, MO 65648</p>
+            <p style={{marginTop:'10px'}}>PO Box 411 (Mailing)<br/>Fair Grove, MO 65648</p>
+            <a href="mailto:csbcfg@gmail.com" style={{marginTop:'10px'}}>csbcfg@gmail.com</a>
+            <a href="tel:4176891547" style={{marginTop:'4px'}}>(417) 689-1547</a>
+          </div>
+          <div className="footer-col">
+            <h4>Sunday Schedule</h4>
+            <div className="footer-times">
+              <div className="footer-time-row">
+                <span className="footer-time-label">Early Worship</span>
+                <span className="footer-time-val">9:00 AM</span>
+              </div>
+              <div className="footer-time-row">
+                <span className="footer-time-label">Sunday School</span>
+                <span className="footer-time-val">10:00 AM</span>
+              </div>
+              <div className="footer-time-row">
+                <span className="footer-time-label">Second Service</span>
+                <span className="footer-time-val">11:00 AM</span>
+              </div>
+              <p style={{fontSize:'12px', color:'var(--gray)', marginTop:'4px'}}>11AM streams live on Facebook</p>
+            </div>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <span className="footer-copy">© 2025 Community Southern Baptist Church · Fair Grove, MO</span>
+          <span className="footer-sbc">Affiliated with the <a href="https://www.sbc.net" target="_blank" rel="noreferrer">Southern Baptist Convention</a></span>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+// ── APP ──
+function App() {
+  const [page, setPage] = useState('Home');
+
+  const handleSetPage = (p) => {
+    setPage(p);
+    window.scrollTo({top:0, behavior:'smooth'});
+  };
+
+  const renderPage = () => {
+    switch(page) {
+      case 'Home':      return <HomePage setPage={handleSetPage}/>;
+      case 'About':     return <AboutPage/>;
+      case 'Gospel':    return <GospelPage setPage={handleSetPage}/>;
+      case 'Connect':   return <ConnectPage/>;
+      case 'Resources': return <ResourcesPage/>;
+      case 'Give':      return <GivePage/>;
+      default:          return <HomePage setPage={handleSetPage}/>;
+    }
+  };
+
+  return (
+    <div>
+      <Header page={page} setPage={handleSetPage}/>
+      <main className="page">{renderPage()}</main>
+      <Footer setPage={handleSetPage}/>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>
