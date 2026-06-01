@@ -1,0 +1,2087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Community Southern Baptist Church | Fair Grove, Missouri</title>
+<meta name="description" content="A family of imperfect people, coming together, to worship a perfect God. Community Southern Baptist Church — Fair Grove, Missouri." />
+
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --navy:       #3f4359;
+    --teal-dark:  #456a68;
+    --teal:       #679e9b;
+    --teal-mid:   #559ca4;
+    --teal-light: #84bcc2;
+    --teal-pale:  #9ac4b3;
+    --charcoal:   #444444;
+    --gray-bg:    #eaeaea;
+    --gray-mid:   #d8d8d8;
+    --white:      #ffffff;
+    --text-dark:  #333333;
+    --text-mid:   #666666;
+    --script:     'Caveat', cursive;
+    --sans:       'Montserrat', sans-serif;
+    --radius:     6px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--gray-bg);
+    color: var(--text-dark);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HEADER ── */
+  .site-header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: var(--navy);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  }
+  .header-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 14px 20px 10px;
+  }
+  .logo-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    gap: 2px;
+  }
+  .logo-img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    mix-blend-mode: screen;
+  }
+  .logo-name {
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--white);
+    line-height: 1;
+  }
+  .logo-sub {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal-pale);
+    line-height: 1;
+  }
+  .logo-location {
+    font-family: var(--script);
+    font-size: 17px;
+    color: var(--teal-light);
+    line-height: 1;
+  }
+  .header-nav {
+    background: #2c2d2e;
+    width: 100%;
+    position: relative;
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    gap: 0;
+  }
+  .nav-item {
+    position: relative;
+  }
+  .nav-link {
+    background: none;
+    border: none;
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--white);
+    padding: 12px 18px;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: background 0.2s, color 0.2s;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+  }
+  .nav-link:hover { background: rgba(255,255,255,0.08); color: var(--teal-light); }
+  .nav-link.active { color: var(--teal-light); border-bottom-color: var(--teal); }
+
+  /* Dropdown */
+  .nav-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #2c2d2e;
+    min-width: 200px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+    z-index: 200;
+    flex-direction: column;
+  }
+  .nav-item:hover .nav-dropdown { display: flex; }
+  .nav-dropdown-link {
+    background: none;
+    border: none;
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--white);
+    padding: 11px 20px;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    white-space: nowrap;
+  }
+  .nav-dropdown-link:hover { background: rgba(255,255,255,0.1); color: var(--teal-light); }
+
+  /* Mobile nav */
+  .hamburger {
+    display: none;
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+    padding: 4px;
+  }
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--white);
+    border-radius: 2px;
+  }
+  .mobile-menu {
+    display: none;
+    flex-direction: column;
+    background: #2c2d2e;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-nav-link {
+    background: none;
+    border: none;
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--white);
+    padding: 13px 20px;
+    text-align: left;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    transition: background 0.2s;
+  }
+  .mobile-nav-link:hover { background: rgba(255,255,255,0.08); }
+  .mobile-nav-link.active { color: var(--teal-light); }
+
+  @media (max-width: 680px) {
+    .nav-inner { display: none; }
+    .hamburger { display: flex; }
+    .header-top { position: relative; }
+  }
+
+  /* ── PAGE ── */
+  .page { padding-top: 148px; }
+  @media (max-width: 680px) { .page { padding-top: 120px; } }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--teal);
+    position: relative;
+    overflow: hidden;
+    min-height: 460px;
+    display: flex;
+    align-items: center;
+  }
+  .hero-globe {
+    position: absolute;
+    right: -60px;
+    top: -60px;
+    width: 500px;
+    height: 500px;
+    opacity: 0.15;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 60px 40px;
+    max-width: 600px;
+  }
+  .hero-welcome {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 6px;
+  }
+  .hero-title {
+    font-family: var(--sans);
+    font-size: clamp(52px, 10vw, 96px);
+    font-weight: 800;
+    color: var(--white);
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+    margin-bottom: 24px;
+  }
+  .hero-mission {
+    font-size: clamp(22px, 5vw, 38px);
+    font-weight: 800;
+    color: rgba(255,255,255,0.9);
+    line-height: 1.1;
+    margin-bottom: 20px;
+    letter-spacing: 0.02em;
+  }
+  .hero-tagline {
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.7;
+    max-width: 420px;
+  }
+
+  /* ── QUICK CARDS ── */
+  .quick-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    background: var(--gray-bg);
+    padding: 40px 40px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  @media (max-width: 600px) {
+    .quick-cards { grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 24px 16px; }
+  }
+  .quick-card {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: opacity 0.2s;
+  }
+  .quick-card:hover { opacity: 0.88; }
+  .quick-card-label {
+    font-family: var(--script);
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--text-dark);
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+  .qc-globe {
+    position: absolute;
+    bottom: -20px;
+    left: -20px;
+    width: 120px;
+    height: 120px;
+    opacity: 0.3;
+  }
+  .qc-1 { background: #8fbfb8; }
+  .qc-2 { background: var(--teal); }
+  .qc-3 { background: var(--teal-dark); }
+  .qc-4 { background: #067885; }
+  .qc-5 { background: var(--teal-mid); }
+  .qc-6 { background: #84bcc2; }
+
+  /* ── SECTION COMMONS ── */
+  .section { padding: 70px 40px; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--teal-dark);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 800;
+    color: var(--text-dark);
+    line-height: 1.15;
+    margin-bottom: 14px;
+  }
+  .section-sub {
+    font-size: 15px;
+    color: var(--text-mid);
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 40px;
+  }
+  .divider {
+    width: 48px;
+    height: 3px;
+    background: var(--teal);
+    border-radius: 2px;
+    margin: 14px 0 36px;
+  }
+  .white-bg { background: var(--white); }
+  .teal-bg { background: var(--teal); }
+  .charcoal-bg { background: var(--charcoal); }
+  .gray-bg { background: var(--gray-bg); }
+
+  @media (max-width: 680px) { .section { padding: 50px 20px; } }
+
+  /* ── SCHEDULE ── */
+  .schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .schedule-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 28px 20px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    border-top: 4px solid var(--teal);
+  }
+  .schedule-time {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--teal-dark);
+    display: block;
+    margin-bottom: 6px;
+  }
+  .schedule-name {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--text-dark);
+    margin-bottom: 4px;
+  }
+  .schedule-note { font-size: 12px; color: var(--text-mid); }
+
+  /* ── KNOW GROW GO ── */
+  .kgg-strip { background: var(--teal-dark); }
+  .kgg-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .kgg-item {
+    padding: 28px 24px;
+    text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.15);
+  }
+  .kgg-item:last-child { border-right: none; }
+  .kgg-word {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--white);
+    display: block;
+    margin-bottom: 4px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .kgg-desc { font-size: 13px; color: rgba(255,255,255,0.75); font-weight: 500; }
+  @media (max-width: 500px) {
+    .kgg-inner { grid-template-columns: 1fr; }
+    .kgg-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.15); }
+    .kgg-item:last-child { border-bottom: none; }
+  }
+
+  /* ── CHILDREN CALLOUT ── */
+  .children-banner {
+    background: var(--teal-light);
+    border-radius: var(--radius);
+    padding: 36px 32px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+  .children-text { flex: 1; min-width: 220px; }
+  .children-title { font-size: 22px; font-weight: 800; color: var(--white); margin-bottom: 8px; }
+  .children-sub { font-size: 14px; color: rgba(255,255,255,0.9); margin-bottom: 16px; line-height: 1.6; }
+  .children-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+  .badge {
+    background: rgba(255,255,255,0.25);
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .children-emoji { font-size: 56px; flex-shrink: 0; }
+  @media (max-width: 600px) { .children-emoji { display: none; } }
+
+  /* ── SERMON PLACEHOLDER ── */
+  .sermon-placeholder {
+    background: var(--teal-dark);
+    border-radius: var(--radius);
+    aspect-ratio: 16/9;
+    max-width: 680px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .sermon-placeholder:hover { opacity: 0.88; }
+  .play-btn {
+    width: 60px; height: 60px;
+    background: var(--white);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .play-btn::after {
+    content: '';
+    border-style: solid;
+    border-width: 10px 0 10px 18px;
+    border-color: transparent transparent transparent var(--teal-dark);
+    margin-left: 3px;
+  }
+  .sermon-label { font-size: 16px; font-weight: 700; color: var(--white); }
+  .sermon-sub { font-size: 12px; color: rgba(255,255,255,0.7); }
+
+  /* ── EVENTS ── */
+  .events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .event-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    transition: transform 0.15s;
+  }
+  .event-card:hover { transform: translateY(-2px); }
+  .event-date-bar {
+    background: var(--teal);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .event-month { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.8); }
+  .event-day { font-size: 30px; font-weight: 800; color: var(--white); line-height: 1; }
+  .event-body { padding: 16px; }
+  .event-title { font-size: 16px; font-weight: 700; color: var(--text-dark); margin-bottom: 6px; }
+  .event-desc { font-size: 13px; color: var(--text-mid); line-height: 1.5; }
+
+  /* ── PRAYER FORM ── */
+  .prayer-form-wrap {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 36px 32px;
+    max-width: 540px;
+    margin: 0 auto;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  .form-group { margin-bottom: 18px; }
+  .form-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--text-mid);
+    margin-bottom: 6px;
+  }
+  .form-input, .form-textarea {
+    width: 100%;
+    background: var(--gray-bg);
+    border: 1px solid var(--gray-mid);
+    border-radius: var(--radius);
+    padding: 10px 13px;
+    color: var(--text-dark);
+    font-family: var(--sans);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-input:focus, .form-textarea:focus { border-color: var(--teal); }
+  .form-textarea { resize: vertical; min-height: 110px; }
+  .form-hint { font-size: 11px; color: var(--text-mid); margin-top: 4px; }
+
+  /* ── BUTTONS ── */
+  .btn-primary {
+    background: var(--teal);
+    color: var(--white);
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 700;
+    padding: 12px 26px;
+    border-radius: var(--radius);
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--teal-dark); transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--teal);
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 700;
+    padding: 12px 26px;
+    border-radius: var(--radius);
+    border: 2px solid var(--teal);
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: all 0.2s;
+  }
+  .btn-outline:hover { background: var(--teal); color: var(--white); }
+  .btn-white {
+    background: var(--white);
+    color: var(--teal-dark);
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 700;
+    padding: 12px 26px;
+    border-radius: var(--radius);
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    transition: opacity 0.2s;
+  }
+  .btn-white:hover { opacity: 0.88; }
+
+  /* ── IDENTITY CARDS ── */
+  .identity-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .identity-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 24px;
+    border-left: 4px solid var(--teal);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .identity-scripture { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal-dark); margin-bottom: 6px; }
+  .identity-name { font-size: 17px; font-weight: 800; color: var(--text-dark); margin-bottom: 8px; }
+  .identity-desc { font-size: 13px; color: var(--text-mid); line-height: 1.6; }
+
+  /* ── STAFF ── */
+  .staff-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  .staff-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    overflow: hidden;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    transition: transform 0.15s;
+  }
+  .staff-card:hover { transform: translateY(-2px); }
+  .staff-photo {
+    width: 100%;
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, var(--teal-pale) 0%, var(--teal-light) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+  }
+  .staff-body { padding: 18px 14px; }
+  .staff-name { font-size: 17px; font-weight: 800; color: var(--text-dark); margin-bottom: 3px; }
+  .staff-role { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--teal-dark); margin-bottom: 10px; }
+  .staff-bio { font-size: 12px; color: var(--text-mid); line-height: 1.55; }
+
+  /* ── BELIEVE ── */
+  .believe-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .believe-item {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 12px 14px;
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .believe-check {
+    width: 18px; height: 18px;
+    background: var(--teal);
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 2px;
+  }
+  .believe-check::after {
+    content: '';
+    width: 4px; height: 8px;
+    border-right: 2px solid var(--white);
+    border-bottom: 2px solid var(--white);
+    transform: rotate(45deg) translate(-1px,-1px);
+  }
+  .believe-text { font-size: 13px; color: var(--text-dark); line-height: 1.5; }
+  .believe-ref { font-size: 11px; color: var(--teal-dark); margin-top: 2px; font-weight: 600; }
+
+  /* ── ACCORDION ── */
+  .accordion { display: flex; flex-direction: column; gap: 6px; }
+  .acc-item {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    overflow: hidden;
+    border-left: 4px solid transparent;
+    transition: border-color 0.2s;
+  }
+  .acc-item.open { border-left-color: var(--teal); }
+  .acc-header {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 15px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    text-align: left;
+    gap: 12px;
+  }
+  .acc-title { font-size: 15px; font-weight: 700; color: var(--text-dark); }
+  .acc-arrow { width: 18px; height: 18px; flex-shrink: 0; color: var(--teal); transition: transform 0.3s; }
+  .acc-item.open .acc-arrow { transform: rotate(180deg); }
+  .acc-body { padding: 0 18px 16px; font-size: 13px; color: var(--text-mid); line-height: 1.65; display: none; }
+  .acc-item.open .acc-body { display: block; }
+
+  /* ── GOSPEL STEPS ── */
+  .gospel-steps { display: flex; flex-direction: column; gap: 0; max-width: 620px; margin: 0 auto; }
+  .gospel-step { display: flex; gap: 20px; align-items: flex-start; padding-bottom: 36px; position: relative; }
+  .gospel-step:last-child { padding-bottom: 0; }
+  .step-number {
+    width: 40px; height: 40px;
+    background: var(--teal);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 800; color: var(--white);
+    flex-shrink: 0; position: relative; z-index: 1;
+  }
+  .gospel-step:not(:last-child) .step-number::after {
+    content: '';
+    position: absolute;
+    top: 100%; left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: calc(100% + 36px - 40px);
+    background: var(--teal-pale);
+    margin-top: 6px;
+  }
+  .step-content { padding-top: 6px; flex: 1; }
+  .step-title { font-size: 18px; font-weight: 800; color: var(--text-dark); margin-bottom: 7px; }
+  .step-text { font-size: 14px; color: var(--text-mid); line-height: 1.7; }
+  .step-verse { display: inline-block; margin-top: 7px; font-size: 11px; font-weight: 700; color: var(--teal-dark); letter-spacing: 0.07em; text-transform: uppercase; }
+
+  /* ── RESOURCES ── */
+  .resources-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+  .resource-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 24px 20px;
+    display: flex; flex-direction: column; gap: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.2s;
+    border-top: 4px solid var(--teal);
+  }
+  .resource-card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.1); }
+  .resource-icon { font-size: 28px; }
+  .resource-title { font-size: 16px; font-weight: 800; color: var(--text-dark); }
+  .resource-desc { font-size: 13px; color: var(--text-mid); line-height: 1.5; flex: 1; }
+  .resource-link { font-size: 12px; font-weight: 700; color: var(--teal-dark); letter-spacing: 0.05em; text-transform: uppercase; margin-top: 4px; }
+
+  /* ── GIVE ── */
+  .give-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; max-width: 800px; margin: 0 auto; }
+  .give-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 26px 22px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    border-top: 4px solid var(--teal);
+  }
+  .give-card-icon { font-size: 32px; margin-bottom: 10px; }
+  .give-card-title { font-size: 17px; font-weight: 800; color: var(--text-dark); margin-bottom: 8px; }
+  .give-card-text { font-size: 13px; color: var(--text-mid); line-height: 1.55; margin-bottom: 16px; }
+
+  /* ── CONNECT GROUPS ── */
+  .cg-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 32px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: center;
+    border-left: 6px solid var(--teal);
+  }
+  .cg-card h3 { font-size: 20px; font-weight: 800; color: var(--text-dark); margin-bottom: 8px; }
+  .cg-card p { font-size: 14px; color: var(--text-mid); line-height: 1.6; }
+  @media (max-width: 560px) { .cg-card { grid-template-columns: 1fr; } }
+
+  /* ── MISSIONS ── */
+  .missions-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 28px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .missions-half h4 { font-size: 16px; font-weight: 800; color: var(--text-dark); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .missions-half p { font-size: 13px; color: var(--text-mid); line-height: 1.6; }
+  @media (max-width: 560px) { .missions-card { grid-template-columns: 1fr; } }
+
+  /* ── VOLUNTEER ── */
+  .volunteer-card {
+    background: var(--teal-pale);
+    border-radius: var(--radius);
+    padding: 28px;
+    text-align: center;
+  }
+  .volunteer-card h3 { font-size: 20px; font-weight: 800; color: var(--white); margin-bottom: 8px; }
+  .volunteer-card p { font-size: 14px; color: rgba(255,255,255,0.9); margin-bottom: 20px; line-height: 1.6; }
+
+  /* ── VISIT ── */
+  .visit-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+  @media (max-width: 700px) { .visit-wrap { grid-template-columns: 1fr; } }
+  .visit-info h3 { font-size: 20px; font-weight: 800; color: var(--text-dark); margin-bottom: 14px; }
+  .visit-info p { font-size: 14px; color: var(--text-mid); line-height: 1.7; margin-bottom: 20px; }
+  .visit-detail { display: flex; gap: 10px; margin-bottom: 12px; align-items: flex-start; }
+  .visit-detail-icon { font-size: 16px; flex-shrink: 0; margin-top: 2px; }
+  .visit-detail-text { font-size: 13px; color: var(--text-mid); line-height: 1.5; }
+
+  /* ── FOOTER ── */
+  .site-footer { background: var(--charcoal); padding: 56px 40px 32px; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; }
+  .footer-logo-wrap { display: flex; flex-direction: column; align-items: center; margin-bottom: 28px; gap: 4px; }
+  .footer-logo-img { width: 80px; height: 80px; object-fit: contain; mix-blend-mode: screen; }
+  .footer-logo-name { font-size: 18px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--white); }
+  .footer-logo-sub { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+  .footer-logo-location { font-family: var(--script); font-size: 20px; color: var(--teal-light); }
+  .footer-mission { font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.6); text-align: center; margin-bottom: 32px; }
+  .footer-schedule { text-align: center; margin-bottom: 12px; }
+  .footer-schedule h4 { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 12px; }
+  .footer-times { display: flex; flex-direction: column; gap: 6px; max-width: 360px; margin: 0 auto; }
+  .footer-time-row { display: flex; justify-content: center; gap: 12px; font-size: 13px; color: var(--white); }
+  .footer-time-label { color: rgba(255,255,255,0.6); }
+  .footer-divider { width: 200px; height: 1px; background: rgba(255,255,255,0.15); margin: 28px auto; }
+  .footer-contact { text-align: center; margin-bottom: 28px; }
+  .footer-contact h4 { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 14px; }
+  .footer-contact p, .footer-contact a { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.8; display: block; text-decoration: none; }
+  .footer-contact a:hover { color: var(--teal-light); }
+  .footer-socials { display: flex; justify-content: center; gap: 14px; margin-bottom: 32px; }
+  .social-btn {
+    width: 36px; height: 36px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; color: var(--white);
+    cursor: pointer; text-decoration: none;
+    transition: background 0.2s;
+  }
+  .social-btn:hover { background: var(--teal); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; text-align: center; }
+  .footer-copy { font-size: 11px; color: rgba(255,255,255,0.4); }
+  .footer-sbc { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 4px; }
+  .footer-sbc a { color: var(--teal-light); text-decoration: none; }
+
+  /* ── INNER PAGE HERO ── */
+  .inner-hero {
+    background: var(--teal);
+    padding: 50px 40px;
+    text-align: center;
+  }
+  .inner-hero-label { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.75); margin-bottom: 8px; }
+  .inner-hero-title { font-size: clamp(28px, 6vw, 48px); font-weight: 800; color: var(--white); line-height: 1.1; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState } = React;
+
+const NAV_ITEMS = ['Home','About','Gospel','Connect','Missions','Events','Resources','Give'];
+
+const NAV_DROPDOWNS = {
+  About: ['Staff','Our Purpose','Contact','What We Believe','Membership','Service Times'],
+  Connect: ['Volunteer Opportunities','Discipleship','Childcare','Prek-5th Grade','Youth','Men','Women','Music','Connect Groups'],
+  Resources: ['Watch Messages','Online Bulletin','Counseling','Online Giving','Church Center','Merch Shop'],
+};
+
+const LOGO_SRC = 'CSBC_Logo.png';
+
+const MINISTRIES = [
+  { title: 'Youth Ministry', body: 'Led by Justin & Jessica Rice, our youth ministry exists to preach and teach the gospel to young adults. We attend school functions, host events, and walk alongside students through life.' },
+  { title: "Men's Ministry", body: "A place for men to grow together in faith, accountability, and brotherhood. We study God's Word, serve together, and challenge one another to lead well — in our homes, workplaces, and community." },
+  { title: "Women's Ministry", body: "Our women's ministry gathers women of all ages to grow in community and in faith. Through Bible study, fellowship, and service, we encourage one another to live out God's call." },
+  { title: 'Music Ministry', body: 'Worship is central to who we are. Our music ministry leads the congregation in both contemporary and traditional worship, creating an atmosphere where we can encounter God together each Sunday.' },
+  { title: "Children's Ministry", body: "We believe in the next generation. Our children's ministry provides a safe, nurturing environment where kids discover who God is in age-appropriate, engaging ways." },
+  { title: 'PreK – 5th Grade', body: "From preschool through elementary school, we have dedicated programming to help your child build a strong foundation of faith. Our teachers are passionate about kids knowing Jesus." },
+  { title: 'Discipleship', body: "Discipleship is the core of our mission. We offer structured pathways to help every believer grow deeper in their walk with Christ — through classes, mentoring, and small group study." },
+];
+
+const BELIEFS = [
+  { text: 'The Bible is inspired by God and is without error', ref: '2 Timothy 3:16' },
+  { text: 'The virgin birth of Jesus Christ', ref: 'Matthew 1:18' },
+  { text: 'The Holy Trinity — Father, Son, and Holy Spirit', ref: '2 Corinthians 13:14' },
+  { text: 'The substitutionary death of Jesus on the cross', ref: '1 Peter 2:24' },
+  { text: 'The bodily resurrection of Jesus Christ', ref: '1 Corinthians 15:3-4' },
+  { text: 'Jesus will come again', ref: 'Acts 1:11' },
+  { text: 'All people are sinful and in need of a Savior', ref: 'Romans 3:23' },
+  { text: 'Salvation is by faith alone, through grace alone', ref: 'Ephesians 2:8-9' },
+  { text: 'The eternal security of the believer', ref: '1 John 5:11-13' },
+  { text: 'A literal heaven for the saved and literal hell for those who reject Christ', ref: 'John 14:1-6' },
+];
+
+const IDENTITY = [
+  { scripture: 'James 1', name: 'A Church That Acts', desc: 'We hear AND do the word of God. We pursue widows, orphans, and the people often overlooked by our society.' },
+  { scripture: 'Revelation 5', name: 'A Church of Worshippers', desc: 'We strive to be a diverse and unified body — every voice joined together in worship of a perfect God.' },
+  { scripture: 'Titus 2', name: 'A Multi-Generational Church', desc: 'Older and younger believers walking together, helping one another follow Jesus across every season of life.' },
+  { scripture: 'Matthew 28', name: 'Disciples Making Disciples', desc: "The Great Commission is not optional. We exist to make disciples — and to equip those disciples to make more." },
+  { scripture: 'Luke 15', name: 'Grace-Filled & Gospel-Centered', desc: 'The elder brother and the younger brother can both celebrate Jesus here. Grace is the ground we all stand on.' },
+];
+
+const STAFF = [
+  { name: 'Dustin Lair', role: 'Lead Pastor', emoji: '✝️', bio: "Dustin has served as Lead Pastor since 2004. His passion is to be the spiritual mentor he never had — which is why disciples making disciples is everything at CSBC." },
+  { name: 'Truman Baxter', role: 'Associate Pastor', emoji: '🌍', bio: "At CSBC since 2010, Truman oversees national and international missions as well as community outreach — passionate about reaching people both near and far." },
+  { name: 'Aaron McGuire', role: 'Lay Pastor', emoji: '📖', bio: "Aaron holds a Master's in professional counseling and runs a Christian counseling practice. He serves through pastoral care and biblical counseling." },
+  { name: 'Justin & Jessica Rice', role: 'Youth Directors', emoji: '🎯', bio: "Justin preaches to students. Jessica's passion is hospitality and making every youth feel welcome. They've been part of CSBC since 2015." },
+];
+
+const RESOURCES_DATA = [
+  { icon: '▶️', title: 'Watch Messages', desc: 'Catch up on recent sermons from our pastors on our YouTube channel.', link: 'Watch on YouTube →', href: 'https://www.youtube.com/@csbcfairgrove1594' },
+  { icon: '📋', title: 'Online Bulletin', desc: "View this week's bulletin for announcements and worship notes.", link: 'View Bulletin →', href: 'https://www.communitysbc.org/online-bulletin' },
+  { icon: '💻', title: 'Facebook LIVE', desc: 'Our 11AM Sunday service streams live every week on Facebook.', link: 'Watch on Facebook →', href: 'https://www.facebook.com/CSBCFG' },
+  { icon: '💰', title: 'Online Giving', desc: 'Give securely online through Church Center.', link: 'Give Now →', href: 'https://www.communitysbc.org/online-giving' },
+  { icon: '🧠', title: 'Counseling', desc: 'Aaron McGuire offers professional Christian counseling — faith-based and confidential.', link: 'Learn More →', href: 'https://www.communitysbc.org/counseling' },
+  { icon: '👕', title: 'Merch Shop', desc: 'Support the church with official CSBC gear.', link: 'Shop Now →', href: 'https://www.communitysbc.org/copy-of-church-center' },
+];
+
+const EVENTS = [
+  { month: 'JUN', day: '8',  title: 'Sunday Morning Worship', desc: 'Join us for Early Worship at 9AM, Sunday School at 10AM, or Second Service at 11AM.' },
+  { month: 'JUN', day: '15', title: 'Connect Group Meeting', desc: 'Connect Groups meet weekly or bi-weekly. Find your group and grow in community.' },
+  { month: 'JUN', day: '22', title: 'Community Outreach', desc: 'We regularly serve our surrounding community. Watch for upcoming service opportunities.' },
+];
+
+// Globe SVG decoration
+function Globe({ className }) {
+  return (
+    <svg className={className} viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="95" stroke="white" strokeWidth="1.5"/>
+      <ellipse cx="100" cy="100" rx="50" ry="95" stroke="white" strokeWidth="1.5"/>
+      <ellipse cx="100" cy="100" rx="95" ry="40" stroke="white" strokeWidth="1.5"/>
+      <line x1="5" y1="100" x2="195" y2="100" stroke="white" strokeWidth="1.5"/>
+      <line x1="100" y1="5" x2="100" y2="195" stroke="white" strokeWidth="1.5"/>
+      <line x1="20" y1="50" x2="180" y2="50" stroke="white" strokeWidth="1"/>
+      <line x1="20" y1="150" x2="180" y2="150" stroke="white" strokeWidth="1"/>
+    </svg>
+  );
+}
+
+function AccItem({ title, body }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className={`acc-item${open ? ' open' : ''}`}>
+      <button className="acc-header" onClick={() => setOpen(!open)}>
+        <span className="acc-title">{title}</span>
+        <svg className="acc-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">
+          <polyline points="5 8 10 13 15 8"/>
+        </svg>
+      </button>
+      <div className="acc-body">{body}</div>
+    </div>
+  );
+}
+
+function Header({ page, setPage }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  return (
+    <header className="site-header">
+      <div className="header-top" style={{position:'relative'}}>
+        <div className="logo-wrap" onClick={() => { setPage('Home'); setMenuOpen(false); }}>
+          <img src={LOGO_SRC} alt="CSBC Logo" className="logo-img" />
+          <span className="logo-name">Community</span>
+          <span className="logo-sub">Southern Baptist Church</span>
+          <span className="logo-location">Fair Grove, Missouri</span>
+        </div>
+        <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
+          <span/><span/><span/>
+        </button>
+      </div>
+      <nav className="header-nav">
+        <div className="nav-inner">
+          {NAV_ITEMS.map(n => (
+            <div key={n} className="nav-item">
+              <button className={`nav-link${page === n ? ' active' : ''}`} onClick={() => setPage(n)}>{n}</button>
+              {NAV_DROPDOWNS[n] && (
+                <div className="nav-dropdown">
+                  {NAV_DROPDOWNS[n].map(sub => (
+                    <button key={sub} className="nav-dropdown-link" onClick={() => { setPage(sub); setMenuOpen(false); }}>{sub}</button>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </nav>
+      <div className={`mobile-menu${menuOpen ? ' open' : ''}`}>
+        {NAV_ITEMS.map(n => (
+          <button key={n} className={`mobile-nav-link${page === n ? ' active' : ''}`} onClick={() => { setPage(n); setMenuOpen(false); }}>{n}</button>
+        ))}
+      </div>
+    </header>
+  );
+}
+
+function Footer({ setPage }) {
+  return (
+    <footer className="site-footer">
+      <div className="footer-inner">
+        <div className="footer-logo-wrap">
+          <img src={LOGO_SRC} alt="CSBC Logo" className="footer-logo-img" />
+          <span className="footer-logo-name">Community</span>
+          <span className="footer-logo-sub">Southern Baptist Church</span>
+          <span className="footer-logo-location">Fair Grove, Missouri</span>
+        </div>
+        <div className="footer-mission">Disciples | Making | Disciples</div>
+
+        <div className="footer-schedule">
+          <h4>Sunday Morning Schedule</h4>
+          <div className="footer-times">
+            <div className="footer-time-row"><span className="footer-time-label">9:00AM</span><span>|</span><span>Early Worship Service</span></div>
+            <div className="footer-time-row"><span className="footer-time-label">10:00AM</span><span>|</span><span>Sunday School</span></div>
+            <div className="footer-time-row"><span className="footer-time-label">11:00AM</span><span>|</span><span>Second Worship Service, Facebook LIVE</span></div>
+          </div>
+        </div>
+
+        <div className="footer-divider"/>
+
+        <div className="footer-contact">
+          <h4>Contact Us</h4>
+          <p><strong style={{color:'var(--white)'}}>Physical Address:</strong></p>
+          <p>4686 State Highway CC</p>
+          <p>Fair Grove, Missouri 65648</p>
+          <p style={{marginTop:'10px'}}><strong style={{color:'var(--white)'}}>Mailing Address:</strong></p>
+          <p>PO Box 411</p>
+          <p>Fair Grove, Missouri 65648</p>
+          <p style={{marginTop:'10px'}}><strong style={{color:'var(--white)'}}>Email:</strong></p>
+          <a href="mailto:csbcfg@gmail.com">csbcfg@gmail.com</a>
+        </div>
+
+        <div className="footer-socials">
+          <a className="social-btn" href="https://www.instagram.com/csbcfg/" target="_blank" rel="noreferrer" title="Instagram">ig</a>
+          <a className="social-btn" href="https://www.facebook.com/CSBCFG" target="_blank" rel="noreferrer" title="Facebook">f</a>
+          <a className="social-btn" href="https://twitter.com/csbcfg" target="_blank" rel="noreferrer" title="Twitter">𝕏</a>
+          <a className="social-btn" href="https://www.youtube.com/@csbcfairgrove1594" target="_blank" rel="noreferrer" title="YouTube">▶</a>
+        </div>
+
+        <div className="footer-bottom">
+          <p className="footer-copy">© 2025 Community Southern Baptist Church · Fair Grove, MO</p>
+          <p className="footer-sbc">Affiliated with the <a href="https://www.sbc.net" target="_blank" rel="noreferrer">Southern Baptist Convention</a></p>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+function HomePage({ setPage }) {
+  return (
+    <div>
+      {/* HERO */}
+      <section className="hero">
+        <Globe className="hero-globe" />
+        <div className="hero-content">
+          <div className="hero-welcome">Welcome to</div>
+          <h1 className="hero-title">Community</h1>
+          <div className="hero-mission">Disciples<br/>Making<br/>Disciples</div>
+          <p className="hero-tagline">We are a family of imperfect people, worshiping a perfect God.<br/><br/>At Community SBC, we strive to be a body of believers, working towards the same goals. Supporting one another, and growing together in The Spirit.</p>
+        </div>
+      </section>
+
+      {/* QUICK CARDS */}
+      <div className="quick-cards">
+        {[
+          { label: 'New Here', cls: 'qc-1', page: 'Connect' },
+          { label: 'Services', cls: 'qc-2', page: 'Connect' },
+          { label: 'Get Involved', cls: 'qc-3', page: 'Connect' },
+          { label: 'Give', cls: 'qc-4', page: 'Give' },
+          { label: 'Missions', cls: 'qc-5', page: 'Connect' },
+          { label: 'Events', cls: 'qc-6', page: 'Connect' },
+        ].map((c, i) => (
+          <div key={i} className={`quick-card ${c.cls}`} onClick={() => setPage(c.page)}>
+            <Globe className="qc-globe" />
+            <span className="quick-card-label">{c.label}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* KNOW GROW GO */}
+      <div className="kgg-strip">
+        <div className="kgg-inner">
+          {[
+            { word: 'Know', desc: 'Every person knowing Jesus' },
+            { word: 'Grow', desc: 'Cultivating your faith together' },
+            { word: 'Go', desc: 'Reaching the lost near and far' },
+          ].map(k => (
+            <div key={k.word} className="kgg-item">
+              <span className="kgg-word">{k.word}</span>
+              <span className="kgg-desc">{k.desc}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* SCHEDULE */}
+      <section className="section white-bg">
+        <div className="section-inner">
+          <p className="section-label">Join Us</p>
+          <h2 className="section-title">Sunday Morning Schedule</h2>
+          <div className="divider"/>
+          <div className="schedule-grid">
+            <div className="schedule-card"><span className="schedule-time">9:00 AM</span><div className="schedule-name">Early Worship Service</div></div>
+            <div className="schedule-card"><span className="schedule-time">10:00 AM</span><div className="schedule-name">Sunday School</div><div className="schedule-note">All ages</div></div>
+            <div className="schedule-card"><span className="schedule-time">11:00 AM</span><div className="schedule-name">Second Worship Service</div><div className="schedule-note">Also streaming on Facebook LIVE</div></div>
+          </div>
+        </div>
+      </section>
+
+      {/* CHILDREN CALLOUT */}
+      <section className="section gray-bg">
+        <div className="section-inner">
+          <div className="children-banner">
+            <div className="children-text">
+              <h2 className="children-title">We've Got Your Kids Covered</h2>
+              <p className="children-sub">From infants to 5th graders, your children are in a safe, nurturing environment every Sunday. We believe in the next generation.</p>
+              <div className="children-badges">
+                <span className="badge">Childcare</span>
+                <span className="badge">PreK – 5th Grade</span>
+                <span className="badge">Youth Ministry</span>
+              </div>
+            </div>
+            <div className="children-emoji">👨‍👩‍👧‍👦</div>
+          </div>
+        </div>
+      </section>
+
+      {/* SERMON */}
+      <section className="section white-bg">
+        <div className="section-inner">
+          <p className="section-label">Recent Message</p>
+          <h2 className="section-title">Latest Sermon</h2>
+          <div className="divider"/>
+          <div className="sermon-placeholder" onClick={() => window.open('https://www.youtube.com/@csbcfairgrove1594','_blank')}>
+            <div className="play-btn"/>
+            <div className="sermon-label">Watch Our Latest Message</div>
+            <div className="sermon-sub">Opens on YouTube — @csbcfairgrove1594</div>
+          </div>
+        </div>
+      </section>
+
+      {/* EVENTS */}
+      <section className="section gray-bg">
+        <div className="section-inner">
+          <p className="section-label">What's Coming Up</p>
+          <h2 className="section-title">Upcoming Events</h2>
+          <div className="divider"/>
+          <div className="events-grid">
+            {EVENTS.map((e, i) => (
+              <div key={i} className="event-card">
+                <div className="event-date-bar">
+                  <div><div className="event-month">{e.month}</div><div className="event-day">{e.day}</div></div>
+                </div>
+                <div className="event-body">
+                  <div className="event-title">{e.title}</div>
+                  <div className="event-desc">{e.desc}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* PRAYER */}
+      <section className="section white-bg">
+        <div className="section-inner">
+          <p className="section-label" style={{textAlign:'center'}}>Let Us Pray With You</p>
+          <h2 className="section-title" style={{textAlign:'center'}}>Submit a Prayer Request</h2>
+          <p style={{textAlign:'center', color:'var(--text-mid)', margin:'0 auto 36px', maxWidth:'480px', lineHeight:'1.7', fontSize:'14px'}}>
+            You don't have to carry it alone. Share your request and our pastoral team will lift you up in prayer.
+          </p>
+          <div className="prayer-form-wrap">
+            <div className="form-group">
+              <label className="form-label">Your Name — optional</label>
+              <input className="form-input" type="text" placeholder="First name or anonymous"/>
+            </div>
+            <div className="form-group">
+              <label className="form-label">Your Prayer Request</label>
+              <textarea className="form-textarea" placeholder="Share what's on your heart…"/>
+              <div className="form-hint">All requests are kept confidential within our pastoral team.</div>
+            </div>
+            <button className="btn-primary" style={{width:'100%'}}>Submit Prayer Request</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+// ── SUB-PAGE COMPONENTS ──────────────────────────────────────
+
+function InnerHero({ label, title }) {
+  return (
+    <div className="inner-hero">
+      <div className="inner-hero-label">{label}</div>
+      <div className="inner-hero-title">{title}</div>
+    </div>
+  );
+}
+
+function StaffPage() {
+  return (
+    <div>
+      <InnerHero label="Our Team" title="Meet the Staff" />
+      <section className="section white-bg">
+        <div className="section-inner">
+          <div className="staff-grid">
+            {STAFF.map((s, i) => (
+              <div key={i} className="staff-card">
+                <div className="staff-photo">{s.emoji}</div>
+                <div className="staff-body">
+                  <div className="staff-name">{s.name}</div>
+                  <div className="staff-role">{s.role}</div>
+                  <div className="staff-bio">{s.bio}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function OurPurposePage() {
+  return (
+    <div>
+      <InnerHero label="Why We Exist" title="Our Purpose" />
+      <section className="section white-bg">
+        <div className="section-inner">
+          <p style={{fontSize:'15px', color:'var(--text-mid)', maxWidth:'640px', marginBottom:'40px', lineHeight:'1.8'}}>
+            While our building is located in Fair Grove Missouri, our community expands to multiple surrounding areas. As a church body, our purpose is broken up into three parts: to KNOW, to GROW, and to GO.
+          </p>
+          <div style={{display:'grid', gap:'24px', gridTemplateColumns:'repeat(auto-fit, minmax(260px, 1fr))'}}>
+            {[
+              { letter:'KNOW', title:'To Know', body:'The Christian faith is centered on the person and work of Jesus Christ. As Christians, we want every human to know Jesus, what He has done, and why it\'s so important.', link:'Learn More', href:'#gospel' },
+              { letter:'GROW', title:'To Grow', body:'Once a person becomes a Christian, next steps are growing your faith! Growth requires reading God\'s Word and praying. Growth also looks like serving, giving, and sharing the Gospel. We want all Christians to cultivate their faith and are here to walk alongside them as they grow!', link:'Next Steps', href:'#discipleship' },
+              { letter:'GO', title:'To Go', body:'Sharing the gospel both locally and globally is something we are passionate about at CSBC. We work to reach the lost by training, equipping, and sending Christians to our neighbors both near and far.', link:'Opportunities', href:'#missions' },
+            ].map((p, i) => (
+              <div key={i} style={{background:'var(--gray-bg)', borderRadius:'var(--radius)', padding:'32px 28px', borderTop:'4px solid var(--teal)'}}>
+                <div style={{fontSize:'11px', fontWeight:'800', letterSpacing:'0.2em', color:'var(--teal-dark)', marginBottom:'8px'}}>{p.letter}</div>
+                <h3 style={{fontSize:'22px', fontWeight:'800', color:'var(--text-dark)', marginBottom:'12px'}}>{p.title}</h3>
+                <p style={{fontSize:'14px', color:'var(--text-mid)', lineHeight:'1.7'}}>{p.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function ContactPage() {
+  return (
+    <div>
+      <InnerHero label="Get In Touch" title="Contact Us" />
+      <section className="section white-bg">
+        <div className="section-inner">
+          <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'48px', alignItems:'start'}}>
+            <div>
+              <h3 style={{fontSize:'20px', fontWeight:'800', color:'var(--text-dark)', marginBottom:'20px'}}>Contact Info</h3>
+              <div style={{display:'flex', flexDirection:'column', gap:'14px', fontSize:'14px', color:'var(--text-mid)', lineHeight:'1.7'}}>
+                <div><strong style={{color:'var(--text-dark)'}}>Office Hours</strong><br/>Tuesday – Friday, 8am–3pm<br/><em>Hours may vary</em></div>
+                <div><strong style={{color:'var(--text-dark)'}}>Phone</strong><br/><a href="tel:4176891547" style={{color:'var(--teal-dark)', textDecoration:'none'}}>417.689.1547</a></div>
+                <div><strong style={{color:'var(--text-dark)'}}>Email</strong><br/><a href="mailto:csbcfg@gmail.com" style={{color:'var(--teal-dark)', textDecoration:'none'}}>csbcfg@gmail.com</a></div>
+                <div><strong style={{color:'var(--text-dark)'}}>Address</strong><br/>4686 E State Hwy CC<br/>Fair Grove, MO 65648</div>
+              </div>
+              <div style={{marginTop:'28px', display:'flex', gap:'12px'}}>
+                {[
+                  { label:'Instagram', href:'https://www.instagram.com/csbcfg/' },
+                  { label:'Facebook', href:'https://www.facebook.com/CSBCFG' },
+                  { label:'YouTube', href:'https://www.youtube.com/@csbcfairgrove1594' },
+                ].map((s,i) => (
+                  <a key={i} href={s.href} target="_blank" rel="noreferrer" style={{fontSize:'12px', fontWeight:'700', color:'var(--teal-dark)', textDecoration:'none', padding:'8px 14px', border:'2px solid var(--teal)', borderRadius:'var(--radius)'}}>{s.label}</a>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h3 style={{fontSize:'20px', fontWeight:'800', color:'var(--text-dark)', marginBottom:'20px'}}>Send a Message</h3>
+              <div style={{display:'flex', flexDirection:'column', gap:'14px'}}>
+                <div className="form-group"><label className="form-label">Email</label><input className="form-input" type="email" placeholder="your@email.com"/></div>
+                <div className="form-group"><label className="form-label">Subject</label><input className="form-input" type="text" placeholder="How can we help?"/></div>
+                <div className="form-group"><label className="form-label">Your Message</label><textarea className="form-textarea" placeholder="Tell us what's on your mind…"/></div>
+                <button className="btn-primary">Send Message</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function WhatWeBelievePage() {
+  return (
+    <div>
+      <InnerHero label="Our Theology" title="What We Believe" />
+      <section className="section white-bg">
+        <div className="section-inner">
+          <p style={{fontSize:'14px', color:'var(--text-mid)', maxWidth:'640px', marginBottom:'28px', lineHeight:'1.7'}}>
+            We are a Southern Baptist Church affiliated with the Southern Baptist Convention. Southern Baptists believe that the Bible is God's revelation of Himself to mankind, with His ultimate revelation being the Gospel message of redemption through Jesus Christ. We adhere to the doctrinal statement as published in the <a href="http://www.sbc.net/bfm2000/bfm2000.asp" target="_blank" rel="noreferrer" style={{color:'var(--teal-dark)'}}>Baptist Faith and Message (2000)</a>.
+          </p>
+          <div className="believe-list">
+            {BELIEFS.map((b, i) => (
+              <div key={i} className="believe-item">
+                <div className="believe-check"/>
+                <div>
+                  <div className="believe-text">{b.text}</div>
+                  <div className="believe-ref">{b.ref}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function MembershipPage() {
+  return (
+    <div>
+      <InnerHero label="Join the Family" title="Membership" />
+      <section className="section white-bg">
+        <div className="section-inner">
+          <div style={{maxWidth:'680px', display:'flex', flexDirection:'column', gap:'36px'}}>
+            <div>
+              <h3 style={{fontSize:'20px', fontWeight:'800', color:'var(--text-dark)', marginBottom:'12px'}}>Does Membership Matter?</h3>
+              <p style={{fontSize:'14px', color:'var(--text-mid)', lineHeight:'1.8'}}>The Christian life is not just our own. It is being adopted into a family in which we enjoy fellowship with our Heavenly Father and with one another. Every Christian should unite with a local, Bible-believing church and share in its worship, its fellowship, and its witness (Ephesians 5:25).</p>
+            </div>
+            <div>
+              <h3 style={{fontSize:'20px', fontWeight:'800', color:'var(--text-dark)', marginBottom:'12px'}}>New Members</h3>
+              <p style={{fontSize:'14px', color:'var(--text-mid)', lineHeight:'1.8'}}>New Members meet with one of our campus pastors and learn about the beliefs and culture of CSBC. You will also learn about the ministries of our church, as well as the expectations for members with principles based on the Word of God. Whether you have already come forward for membership or are just prayerfully considering it, we encourage you to reach out to one of the campus pastors.</p>
+            </div>
+            <div>
+              <h3 style={{fontSize:'20px', fontWeight:'800', color:'var(--text-dark)', marginBottom:'12px'}}>Church Directory</h3>
+              <p style={{fontSize:'14px', color:'var(--text-mid)', lineHeight:'1.8', marginBottom:'16px'}}>We use Planning Center as an online tool and directory. Members can choose whether their contact information is accessible to other members. You must be added as a member to access this information.</p>
+              <a href="https://csbcfg.churchcenter.com/login?return=https://csbcfg.churchcenter.com/directory" target="_blank" rel="noreferrer">
+                <button className="btn-primary">Access Directory</button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function ServiceTimesPage() {
+  return (
+    <div>
+      <InnerHero label="Join Us" title="Service Times" />
+      <section className="section white-bg">
+        <div className="section-inner">
+          <div style={{display:'flex', flexDirection:'column', gap:'40px', maxWidth:'680px'}}>
+            {[
+              { title:'Sunday Worship', body:'Sunday morning worship at Community is a place for everyone — no matter where you are in your walk. We offer two morning worship services every Sunday. The second morning service is broadcast live as well.', times:[{t:'9:00am', l:'First Service'},{t:'11:00am', l:'Second Service'}] },
+              { title:'Sunday School', body:'Between the two morning services we dedicate time to smaller groups in a classroom setting. Sunday school is a consistent gathering of people who want to understand more about God, make wise decisions, and experience life together. We offer Sunday school for every child and adult.', times:[{t:'10:00am', l:'Sunday School'}] },
+              { title:'Sunday Evening', body:'On the first Sunday of the month we have evening service dedicated to prayer and worship, followed by our monthly business meeting. All other Sunday nights we have Connect Groups — off campus small groups held at members\' homes.', times:[{t:'6:00pm', l:'Sunday Evening'}] },
+              { title:'Wednesday Evening', body:'On Wednesdays we meet for a meal, then have Bible study immediately following. The first Wednesday of each month is Fellowship Supper where we gather to fellowship and have a potluck. While Wednesdays focus heavily on our children\'s program, we also offer an adult Bible study.', times:[{t:'6:00pm', l:'Meal'},{t:'7:00pm', l:'Bible Study'}] },
+            ].map((s, i) => (
+              <div key={i} style={{borderLeft:'4px solid var(--teal)', paddingLeft:'24px'}}>
+                <h3 style={{fontSize:'18px', fontWeight:'800', color:'var(--text-dark)', marginBottom:'10px'}}>{s.title}</h3>
+                <p style={{fontSize:'14px', color:'var(--text-mid)', lineHeight:'1.8', marginBottom:'14px'}}>{s.body}</p>
+                <div style={{display:'flex', gap:'16px', flexWrap:'wrap'}}>
+                  {s.times.map((t, j) => (
+                    <span key={j} style={{background:'var(--teal)', color:'#fff', fontSize:'12px', fontWeight:'700', padding:'5px 12px', borderRadius:'var(--radius)'}}>{t.t} · {t.l}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+            <p style={{fontSize:'13px', color:'var(--text-mid)', lineHeight:'1.7', fontStyle:'italic'}}>
+              Nursery and Toddler care is provided during Sunday School, both morning services, Sunday evening, and Wednesday Evening Bible Study. Children's Church is available for PreK during second service. Dress as you are — all are welcome.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+// ── MAIN PAGE COMPONENTS ──────────────────────────────────────
+
+function AboutPage({ setPage }) {
+  return (
+    <div>
+      <InnerHero label="Who We Are" title="About CSBC" />
+      <section className="section white-bg">
+        <div className="section-inner">
+          <p className="section-label">Our Mission</p>
+          <h2 className="section-title">Why We Exist</h2>
+          <div className="divider"/>
+          <div style={{maxWidth:'640px', marginBottom:'48px'}}>
+            <p style={{fontSize:'20px', fontWeight:'800', color:'var(--text-dark)', marginBottom:'16px'}}>Disciples Making Disciples.</p>
+            <p style={{fontSize:'15px', color:'var(--text-mid)', lineHeight:'1.8'}}>
+              Pastor Dustin Lair was saved at 14 and desperately wanted someone to disciple him. That person never came. So when God called him to ministry at 17, he made a decision: he would be the answer to anyone praying that same prayer. That conviction is the DNA of Community Southern Baptist Church.
+            </p>
+          </div>
+          <p className="section-label" style={{marginBottom:'20px'}}>Our Identity</p>
+          <div className="identity-grid">
+            {IDENTITY.map((id, i) => (
+              <div key={i} className="identity-card">
+                <div className="identity-scripture">{id.scripture}</div>
+                <div className="identity-name">{id.name}</div>
+                <div className="identity-desc">{id.desc}</div>
+              </div>
+            ))}
+          </div>
+          <div style={{marginTop:'48px', display:'flex', gap:'12px', flexWrap:'wrap'}}>
+            {['Staff','Our Purpose','What We Believe','Membership','Service Times'].map(sub => (
+              <button key={sub} className="btn-outline" onClick={() => setPage(sub)} style={{fontSize:'13px'}}>{sub} →</button>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function GospelPage({ setPage }) {
+  return (
+    <div>
+      <InnerHero label="The Most Important Question" title="This Is Good News" />
+      <section className="section white-bg">
+        <div className="section-inner">
+          <div style={{maxWidth:'700px'}}>
+            <h3 style={{fontSize:'20px', fontWeight:'800', color:'var(--text-dark)', marginBottom:'16px'}}>Because of who God is and because of what we are.</h3>
+            <p style={{fontSize:'14px', color:'var(--text-mid)', lineHeight:'1.8', marginBottom:'20px'}}>
+              God is holy (distinct from us and without sin) and just (He requires holiness and righteousness from anyone who desires to be in a right relationship with Him), and we are unholy (sinners by nature and by choice) and deserving of God's righteous anger. This means that, apart from Christ, every person is separated from God due to their sin (Isaiah 59:2) and will pay the price for their sin: death (Romans 6:23). None of us are able to earn or achieve a right relationship with God (Galatians 2; Ephesians 2).
+            </p>
+            <p style={{fontSize:'14px', color:'var(--text-mid)', lineHeight:'1.8', marginBottom:'40px'}}>
+              Thankfully, Jesus Christ intervened on our behalf. Jesus, who is God, left heaven and came to earth to pay the death penalty for sin. He lived a sinless life and offered Himself as a perfect substitute, dying for our sins and in our place so that we might be forgiven and receive eternal life. Three days after His death, Jesus rose from the grave in victory over sin, death, and Satan.
+            </p>
+
+            <h3 style={{fontSize:'20px', fontWeight:'800', color:'var(--text-dark)', marginBottom:'16px'}}>Respond</h3>
+            <p style={{fontSize:'14px', color:'var(--text-mid)', lineHeight:'1.8', marginBottom:'12px'}}>
+              <strong>First, we must repent.</strong> To repent means to change the way you think about God, sin, and yourself — moving from open rebellion to humble submission, from viewing sin as something to be desired to viewing it as something that destroys your relationship with God.
+            </p>
+            <p style={{fontSize:'14px', color:'var(--text-mid)', lineHeight:'1.8', marginBottom:'40px'}}>
+              <strong>Second, we must exercise faith</strong> in the person and work of Jesus Christ — knowing the facts, believing they are true, and trusting in Jesus Christ and Him alone for forgiveness, change, and eternal life.
+            </p>
+
+            <div style={{background:'var(--gray-bg)', borderRadius:'var(--radius)', padding:'32px', marginBottom:'40px'}}>
+              <h3 style={{fontSize:'18px', fontWeight:'800', color:'var(--text-dark)', marginBottom:'16px'}}>Can I Become a Follower?</h3>
+              <p style={{fontSize:'14px', color:'var(--text-mid)', lineHeight:'1.8', marginBottom:'4px'}}>Yes — to receive God's plan:</p>
+              <div style={{display:'flex', flexDirection:'column', gap:'10px', marginTop:'14px'}}>
+                {[
+                  '1. Admit your problem: being separated from God by sin. Recognize that you have sinned, know the need for God\'s solution, confess and repent.',
+                  '2. Believe Jesus Christ died for your sins, was buried, and rose from the dead.',
+                  '3. Receive Him now as your personal Lord, God, and Savior.',
+                ].map((step, i) => (
+                  <div key={i} style={{fontSize:'14px', color:'var(--text-mid)', lineHeight:'1.7', paddingLeft:'12px', borderLeft:'3px solid var(--teal)'}}>{step}</div>
+                ))}
+              </div>
+              <p style={{fontSize:'13px', color:'var(--text-mid)', lineHeight:'1.7', marginTop:'16px', fontStyle:'italic'}}>
+                "If you confess with your mouth Jesus as Lord, and believe in your heart that God raised Him from the dead, you will be saved." — Romans 10:9
+              </p>
+            </div>
+
+            <div style={{background:'var(--teal)', borderRadius:'var(--radius)', padding:'32px', textAlign:'center'}}>
+              <h3 style={{fontSize:'18px', fontWeight:'800', color:'#fff', marginBottom:'8px'}}>Talk to Someone</h3>
+              <p style={{fontSize:'14px', color:'rgba(255,255,255,0.85)', marginBottom:'20px', lineHeight:'1.7'}}>Have questions or made a decision to follow Christ? Our pastoral team would love to hear from you — no pressure, just conversation.</p>
+              <button className="btn-white" onClick={() => setPage('Contact')}>Reach Out →</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function ConnectPage({ setPage }) {
+  return (
+    <div>
+      <InnerHero label="Get Involved" title="Better Together" />
+      <section className="section white-bg">
+        <div className="section-inner">
+          <p style={{fontSize:'15px', color:'var(--text-mid)', maxWidth:'640px', marginBottom:'40px', lineHeight:'1.8'}}>
+            Church is more than a place to go. We are a family united by the blood of Jesus. We have opportunities to gather and of course to give back by serving. Our desire is for you to connect with other brothers and sisters in Christ, and use your talents and time to serve and make a difference for the Kingdom of God.
+          </p>
+          <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(200px, 1fr))', gap:'16px'}}>
+            {[
+              { label:'Discipleship', sub:'New Christians', page:'Discipleship' },
+              { label:'Childcare', sub:'Infants & Toddlers', page:'Childcare' },
+              { label:'CSBC Kids', sub:'PreK – 5th Grade', page:'Prek-5th Grade' },
+              { label:'Youth', sub:'6th – 12th Grade', page:'Youth' },
+              { label:'Connect Groups', sub:'Off-campus small groups', page:'Connect Groups' },
+              { label:"Men's Ministry", sub:'Iron sharpens iron', page:'Men' },
+              { label:"Women's Ministry", sub:'Community & Bible study', page:'Women' },
+              { label:'Music & Media', sub:'Worship team', page:'Music' },
+            ].map((item, i) => (
+              <button key={i} onClick={() => setPage(item.page)} style={{background:'var(--gray-bg)', border:'none', borderRadius:'var(--radius)', padding:'20px 18px', textAlign:'left', cursor:'pointer', transition:'background 0.2s', borderLeft:'4px solid var(--teal)'}}>
+                <div style={{fontSize:'15px', fontWeight:'800', color:'var(--text-dark)', marginBottom:'4px'}}>{item.label}</div>
+                <div style={{fontSize:'12px', color:'var(--text-mid)'}}>{item.sub}</div>
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section className="section gray-bg">
+        <div className="section-inner">
+          <p className="section-label">Volunteer</p>
+          <h2 className="section-title">Serve With Us</h2>
+          <div className="divider"/>
+          <p style={{fontSize:'14px', color:'var(--text-mid)', lineHeight:'1.8', maxWidth:'560px', marginBottom:'24px'}}>
+            We serve because God has designed us and called us to do good works. There are always opportunities to serve in the church and in our communities.
+          </p>
+          <button className="btn-primary" onClick={() => setPage('Volunteer Opportunities')}>See Volunteer Opportunities →</button>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function ResourcesPage({ setPage }) {
+  return (
+    <div>
+      <InnerHero label="Tools & Links" title="Resources" />
+      <section className="section white-bg">
+        <div className="section-inner">
+          <div className="resources-grid">
+            {[
+              { icon:'▶️', title:'Watch Messages', desc:'Catch up on recent sermons from our pastors on our YouTube channel.', link:'Watch on YouTube →', href:'https://www.youtube.com/@csbcfairgrove1594', page:'Watch Messages' },
+              { icon:'📋', title:'Online Bulletin', desc:"View this week's bulletin for announcements and worship notes.", link:'View Bulletin →', href:'https://www.communitysbc.org/online-bulletin', page:'Online Bulletin' },
+              { icon:'💻', title:'Facebook LIVE', desc:'Our 11AM Sunday service streams live every week on Facebook.', link:'Watch on Facebook →', href:'https://www.facebook.com/CSBCFG', page:null },
+              { icon:'💰', title:'Online Giving', desc:'Give securely online through Church Center.', link:'Give Now →', href:'https://www.communitysbc.org/online-giving', page:'Online Giving' },
+              { icon:'🧠', title:'Counseling', desc:'Aaron McGuire offers professional Christian counseling — faith-based and confidential.', link:'Learn More →', href:null, page:'Counseling' },
+              { icon:'👕', title:'Merch Shop', desc:'Support the church with official CSBC gear.', link:'Shop Now →', href:'https://www.communitysbc.org/copy-of-church-center', page:'Merch Shop' },
+            ].map((r, i) => (
+              <div key={i} className="resource-card" style={{cursor:'pointer'}} onClick={() => r.page ? setPage(r.page) : r.href ? window.open(r.href,'_blank') : null}>
+                <div className="resource-icon">{r.icon}</div>
+                <div className="resource-title">{r.title}</div>
+                <div className="resource-desc">{r.desc}</div>
+                <div className="resource-link">{r.link}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function GivePage() {
+  return (
+    <div>
+      <InnerHero label="Generosity" title="Give" />
+      <section className="section white-bg">
+        <div className="section-inner">
+          <div style={{textAlign:'center', maxWidth:'540px', margin:'0 auto 48px'}}>
+            <p className="section-label">Why We Give</p>
+            <h2 className="section-title">Giving Is an Act of Worship</h2>
+            <div className="divider" style={{margin:'14px auto 20px'}}/>
+            <p style={{fontSize:'15px', color:'var(--text-mid)', lineHeight:'1.8'}}>
+              At CSBC, giving is not an obligation — it's an act of worship. Every dollar given supports local ministry, global missions, and the work of making disciples right here in Fair Grove.
+            </p>
+          </div>
+          <div className="give-options">
+            <div className="give-card">
+              <div className="give-card-icon">💻</div>
+              <div className="give-card-title">Give Online</div>
+              <div className="give-card-text">Secure giving through Church Center. One-time or recurring.</div>
+              <a href="https://www.communitysbc.org/online-giving" target="_blank" rel="noreferrer">
+                <button className="btn-primary" style={{width:'100%'}}>Give Online Now</button>
+              </a>
+            </div>
+            <div className="give-card">
+              <div className="give-card-icon">✉️</div>
+              <div className="give-card-title">Give by Mail</div>
+              <div className="give-card-text">Make checks payable to Community Southern Baptist Church.</div>
+              <p style={{fontSize:'13px', color:'var(--text-mid)', lineHeight:'1.7'}}>PO Box 411<br/>Fair Grove, MO 65648</p>
+            </div>
+            <div className="give-card">
+              <div className="give-card-icon">👕</div>
+              <div className="give-card-title">Merch Shop</div>
+              <div className="give-card-text">Support CSBC and represent your church community.</div>
+              <a href="https://www.communitysbc.org/copy-of-church-center" target="_blank" rel="noreferrer">
+                <button className="btn-outline" style={{width:'100%'}}>Visit the Shop</button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function MissionsPage() {
+  return (
+    <div>
+      <InnerHero label="Local & Global" title="Missions" />
+      <section className="section white-bg">
+        <div className="section-inner">
+          <p style={{fontSize:'14px', color:'var(--text-mid)', maxWidth:'640px', marginBottom:'40px', lineHeight:'1.8'}}>
+            Our missions program is modeled by Jesus' command in Acts 1:8. We believe everyone deserves an opportunity to hear the Gospel — it is our Biblical mandate to take the message of Jesus to our community, our nation, and to the ends of the Earth.
+          </p>
+
+          <p className="section-label">Our Community</p>
+          <h2 className="section-title">Local Missions</h2>
+          <div className="divider"/>
+          <div style={{display:'grid', gap:'20px', gridTemplateColumns:'repeat(auto-fit, minmax(280px, 1fr))', marginBottom:'56px'}}>
+            {[
+              { title:'Freeway Ministries', body:'A drug and alcohol recovery ministry committed to using Biblical truths to help people be set free from addiction. CSBC partners with and supports Freeway Ministries on an ongoing basis.', href:'https://freeway-ministries.com/' },
+              { title:'People Feeding People', body:'An in-house ministry that travels to local poverty stricken areas and homeless camps to provide meals and present the gospel message — meeting people personally and having deep conversations about life.' },
+              { title:'Harmony House', body:'Every month we provide and serve a meal at Harmony House, which has provided shelter and support to domestic violence survivors since 1976, impacting over 20,000 individuals and their children.', href:'https://www.myharmonyhouse.org/' },
+              { title:'Fair Grove Schools', body:'We have a heart for our local school district — feeding teachers and staff, helping families with lunch debt, providing school supplies, and working with administration to help local families in need.' },
+            ].map((m, i) => (
+              <div key={i} style={{background:'var(--gray-bg)', borderRadius:'var(--radius)', padding:'24px', borderTop:'4px solid var(--teal)'}}>
+                <h4 style={{fontSize:'16px', fontWeight:'800', color:'var(--text-dark)', marginBottom:'10px'}}>{m.title}</h4>
+                <p style={{fontSize:'13px', color:'var(--text-mid)', lineHeight:'1.7', marginBottom: m.href ? '12px' : '0'}}>{m.body}</p>
+                {m.href && <a href={m.href} target="_blank" rel="noreferrer" style={{fontSize:'12px', fontWeight:'700', color:'var(--teal-dark)', textDecoration:'none'}}>Learn More →</a>}
+              </div>
+            ))}
+          </div>
+
+          <p className="section-label">To the Ends of the Earth</p>
+          <h2 className="section-title">Global Missions</h2>
+          <div className="divider"/>
+          <div style={{display:'grid', gap:'20px', gridTemplateColumns:'repeat(auto-fit, minmax(280px, 1fr))'}}>
+            {[
+              { title:'Annual Mission Trips', body:'Every year we have a spring and summer church mission trip — a combination of service work, outreach, evangelism, and helping with worship services. Past destinations include New Mexico, Omaha NE, and Eureka Springs AR. Everyone is welcome — all ages, no cost for local trips.' },
+              { title:'Operation Christmas Child', body:'CSBC participates every year in Operation Christmas Child through Samaritan\'s Purse — demonstrating God\'s love in a tangible way to children in need around the world through shoebox gifts.', href:'https://www.samaritanspurse.org/operation-christmas-child/' },
+              { title:'International Missions', body:'CSBC has partnered with Missionary Keri Kondracki with World Initiative Network, expanding our international missions to Greece and South Africa — bringing the gospel while meeting needs for nutrition, shelter, safety, and education.', href:'https://mannaworldwide.com/' },
+            ].map((m, i) => (
+              <div key={i} style={{background:'var(--gray-bg)', borderRadius:'var(--radius)', padding:'24px', borderTop:'4px solid var(--navy)'}}>
+                <h4 style={{fontSize:'16px', fontWeight:'800', color:'var(--text-dark)', marginBottom:'10px'}}>{m.title}</h4>
+                <p style={{fontSize:'13px', color:'var(--text-mid)', lineHeight:'1.7', marginBottom: m.href ? '12px' : '0'}}>{m.body}</p>
+                {m.href && <a href={m.href} target="_blank" rel="noreferrer" style={{fontSize:'12px', fontWeight:'700', color:'var(--teal-dark)', textDecoration:'none'}}>Learn More →</a>}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function EventsPage() {
+  return (
+    <div>
+      <InnerHero label="What's Coming Up" title="Events" />
+      <section className="section white-bg">
+        <div className="section-inner">
+          <div className="events-grid">
+            {EVENTS.map((e, i) => (
+              <div key={i} className="event-card">
+                <div className="event-date-bar">
+                  <div><div className="event-month">{e.month}</div><div className="event-day">{e.day}</div></div>
+                </div>
+                <div className="event-body">
+                  <div className="event-title">{e.title}</div>
+                  <div className="event-desc">{e.desc}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div style={{marginTop:'40px', display:'flex', gap:'14px', justifyContent:'center', flexWrap:'wrap'}}>
+            <a href="https://www.communitysbc.org/online-bulletin" target="_blank" rel="noreferrer">
+              <button className="btn-primary">Online Bulletin →</button>
+            </a>
+            <a href="https://www.facebook.com/CSBCFG" target="_blank" rel="noreferrer">
+              <button className="btn-outline">Facebook →</button>
+            </a>
+          </div>
+          <p style={{fontSize:'13px', color:'var(--text-mid)', textAlign:'center', marginTop:'20px'}}>
+            For the most up-to-date events, check the online bulletin or follow us on Facebook.
+          </p>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+// ── CONNECT SUB-PAGES ────────────────────────────────────────
+
+function DiscipleshipPage() {
+  return (
+    <div>
+      <InnerHero label="New Christians" title="Disciples Making Disciples" />
+      <section className="section white-bg">
+        <div className="section-inner">
+          <p style={{fontSize:'14px', color:'var(--text-mid)', maxWidth:'640px', marginBottom:'32px', lineHeight:'1.8'}}>
+            We are serious about our church slogan. At Community, we believe in coming alongside our brothers and sisters in Christ and discipling one another. We have a 2-step discipleship program available to anyone — new believers and long-time members alike. These courses affirm beliefs, dig into the Word, and build relationships with mentors.
+          </p>
+          <div style={{display:'grid', gap:'24px', gridTemplateColumns:'repeat(auto-fit, minmax(280px, 1fr))'}}>
+            {[
+              { phase:'Phase 1', title:'Phase 1 Discipleship', body:'A 10-lesson curriculum that explains the basic doctrines essential to a believer. An excellent starting point for anyone who has recently placed their faith in Christ.' },
+              { phase:'Phase 2', title:'Phase 2 Discipleship', body:'A 10-lesson curriculum that goes into further detail on biblical doctrines and includes practical steps to righteous living and cultivating a life of growth as a believer.' },
+            ].map((p, i) => (
+              <div key={i} style={{background:'var(--gray-bg)', borderRadius:'var(--radius)', padding:'28px', borderTop:'4px solid var(--teal)'}}>
+                <div style={{fontSize:'11px', fontWeight:'800', letterSpacing:'0.16em', color:'var(--teal-dark)', marginBottom:'6px'}}>{p.phase}</div>
+                <h3 style={{fontSize:'18px', fontWeight:'800', color:'var(--text-dark)', marginBottom:'10px'}}>{p.title}</h3>
+                <p style={{fontSize:'13px', color:'var(--text-mid)', lineHeight:'1.7'}}>{p.body}</p>
+              </div>
+            ))}
+          </div>
+          <div style={{marginTop:'32px', background:'var(--teal)', borderRadius:'var(--radius)', padding:'28px', textAlign:'center'}}>
+            <p style={{fontSize:'14px', color:'#fff', lineHeight:'1.7', marginBottom:'16px'}}>After completion, our discipled individuals turn around and disciple the next person ready to begin. The goal is to continue discipling within the church, the surrounding communities, and to the ends of the earth.</p>
+            <a href="mailto:csbcfg@gmail.com"><button className="btn-white">Get Started →</button></a>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function ChildcarePage() {
+  return (
+    <div>
+      <InnerHero label="Our Littlest Members" title="Childcare" />
+      <section className="section white-bg">
+        <div className="section-inner">
+          <div style={{maxWidth:'640px'}}>
+            <p style={{fontSize:'14px', color:'var(--text-mid)', lineHeight:'1.8', marginBottom:'20px'}}>
+              Our volunteers truly have a heart to serve the kids in our community and offer childcare for infants and toddlers every Sunday during Sunday school and both worship services.
+            </p>
+            <p style={{fontSize:'14px', color:'var(--text-mid)', lineHeight:'1.8', marginBottom:'20px'}}>
+              Childcare is also provided during Wednesday evening and Sunday evening Bible study so that parents can focus on their classes without distraction.
+            </p>
+            <p style={{fontSize:'14px', color:'var(--text-mid)', lineHeight:'1.8', marginBottom:'28px'}}>
+              Our children's ministry teaches the Bible, even to our smallest members. While in the nursery and toddler rooms, children will hear Bible stories and do age-appropriate Bible activities.
+            </p>
+            <a href="https://www.communitysbc.org/_files/ugd/d88833_1074faf957974a6982bf598f96054c6e.pdf" target="_blank" rel="noreferrer">
+              <button className="btn-primary">Parent Handbook →</button>
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function KidsPage() {
+  return (
+    <div>
+      <InnerHero label="PreK – 5th Grade" title="CSBC Kids" />
+      <section className="section white-bg">
+        <div className="section-inner">
+          <div style={{maxWidth:'640px'}}>
+            <p style={{fontSize:'14px', color:'var(--text-mid)', lineHeight:'1.8', marginBottom:'20px'}}>
+              CSBC Kids allows for a more cohesive approach to the discipleship of our children and works hand in hand with our overall vision to Know, Grow, and Go! Kids are important to us, so we've designed a place for them to learn about Jesus in an age-appropriate way.
+            </p>
+            <p style={{fontSize:'14px', color:'var(--text-mid)', lineHeight:'1.8', marginBottom:'20px'}}>
+              We believe two combined influences are better than one alone. Parents are the primary spiritual influence in a child's life. But when the church and parents work together we have a greater opportunity to teach kids to love God with all their hearts and live like Jesus every day.
+            </p>
+            <p style={{fontSize:'14px', color:'var(--text-mid)', lineHeight:'1.8', marginBottom:'28px'}}>
+              Every Sunday we use the Answers in Genesis curriculum during the Sunday school hour. Classes are broken up into PreK, K–1st Grade, 2nd–3rd Grade, and 4th–5th Grade. The same age groups meet on Wednesday nights. We also have Children's Church for PreK during both worship services.
+            </p>
+            <a href="https://www.communitysbc.org/_files/ugd/d88833_1074faf957974a6982bf598f96054c6e.pdf" target="_blank" rel="noreferrer">
+              <button className="btn-primary">Parent Handbook →</button>
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function YouthPage() {
+  return (
+    <div>
+      <InnerHero label="6th – 12th Grade" title="Youth Ministry" />
+      <section className="section white-bg">
+        <div className="section-inner">
+          <div style={{maxWidth:'640px'}}>
+            <p style={{fontSize:'14px', color:'var(--text-mid)', lineHeight:'1.8', marginBottom:'16px'}}>
+              Our student ministry gives high school and middle school students a fun place to connect with God and others. The goal is simply one phrase: <strong>Follow Jesus</strong> — guided by four elements: Connect, Grow, Serve, and Share.
+            </p>
+            <p style={{fontSize:'14px', color:'var(--text-mid)', lineHeight:'1.8', marginBottom:'16px'}}>
+              Our aim is to equip students to develop their own faith in Jesus Christ and to join God on His mission to reach every man, woman, and child with the Gospel. We want to partner with parents and surround students with caring adults so they can be equipped for the journey of following Christ throughout their entire lives.
+            </p>
+            <p style={{fontSize:'14px', color:'var(--text-mid)', lineHeight:'1.8', marginBottom:'28px'}}>
+              Youth Group is divided into two age groups: <strong>6th–8th grade</strong> and <strong>9th–12th grade</strong>. Both groups meet every Sunday during the Sunday school hour and Wednesday evenings.
+            </p>
+            <a href="https://calendar.google.com/calendar/u/0?cid=YTdkYjY3MzZkY2Q5ZWE4YTUwOWZjODkyMzJmYTk1YTQ2MjBjMzMwZTBiMGE4YTgyYTAwMzUxYTY0MmEyMzQ5YkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t" target="_blank" rel="noreferrer">
+              <button className="btn-primary">Youth Calendar →</button>
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function MenPage() {
+  return (
+    <div>
+      <InnerHero label="Iron Sharpens Iron" title="Men's Ministry" />
+      <section className="section white-bg">
+        <div className="section-inner">
+          <div style={{maxWidth:'640px'}}>
+            <p style={{fontSize:'14px', color:'var(--text-mid)', lineHeight:'1.8', marginBottom:'16px'}}>
+              The men's ministry at Community focuses on helping men grow in the grace and knowledge of the Lord through building friendships and providing inspiration and outreach. We believe gathering God's men together for fellowship and worship provides great spiritual benefits — as Proverbs 27:17 states, "As iron sharpens iron, so one man sharpens another."
+            </p>
+            <p style={{fontSize:'14px', color:'var(--text-mid)', lineHeight:'1.8', marginBottom:'28px'}}>
+              Our Men's ministry is involved in serving through various ministries such as Freeway and People Feeding People. CSBC Men attend an annual conference and host men's breakfasts and BBQs throughout the year. We typically have a men's Bible study going with short breaks in between. Men mentoring men is key in a strong ministry — we have leaders in all walks of life here to fellowship with and mentor one another.
+            </p>
+            <a href="mailto:csbcfg@gmail.com"><button className="btn-primary">Get Involved →</button></a>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function WomenPage() {
+  return (
+    <div>
+      <InnerHero label="Community & Growth" title="Women's Ministry" />
+      <section className="section white-bg">
+        <div className="section-inner">
+          <div style={{maxWidth:'640px'}}>
+            <p style={{fontSize:'14px', color:'var(--text-mid)', lineHeight:'1.8', marginBottom:'16px'}}>
+              Our prayer is that our Women's events will encourage you. We hope that you will be challenged to embrace a deeper relationship with the Lord. Most importantly, our desire is that you would exhale what God has taught you by impacting your community and our world.
+            </p>
+            <p style={{fontSize:'14px', color:'var(--text-mid)', lineHeight:'1.8', marginBottom:'16px'}}>
+              We have a ministry specifically designed for women of all ages to connect with other women through conversation and Bible study. Our goal is to strengthen women to grow in their walk with the Lord by being encouraged, supported, and challenged by others.
+            </p>
+            <p style={{fontSize:'14px', color:'var(--text-mid)', lineHeight:'1.8', marginBottom:'28px'}}>
+              We typically have a women's Bible study going throughout the entire year with short breaks in between. We also have monthly women's events centered around serving or donation opportunities for various missions.
+            </p>
+            <a href="mailto:csbcfg@gmail.com"><button className="btn-primary">Get Involved →</button></a>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function MusicPage() {
+  return (
+    <div>
+      <InnerHero label="Worship Team" title="Music & Media" />
+      <section className="section white-bg">
+        <div className="section-inner">
+          <div style={{maxWidth:'640px'}}>
+            <p style={{fontSize:'14px', color:'var(--text-mid)', lineHeight:'1.8', marginBottom:'16px'}}>
+              Our music is centered around Jesus. From songs on the radio to century-old hymns, our hope is the music we play will help your heart engage in worship and create genuine praise in your life. We are a church committed to focusing our attention on Jesus and giving Him the glory in everything we do.
+            </p>
+            <p style={{fontSize:'14px', color:'var(--text-mid)', lineHeight:'1.8', marginBottom:'28px'}}>
+              No matter which Sunday morning service you attend, you can expect consistency and excellence from our media team. Our desire is that your heart would engage in worship so you can experience Jesus and bring glory to God each week. If you have musical or media talents, this team is for you — singers, musicians, and media volunteers serve every week.
+            </p>
+            <a href="mailto:csbcfg@gmail.com"><button className="btn-primary">Join the Team →</button></a>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function ConnectGroupsPage() {
+  return (
+    <div>
+      <InnerHero label="Life Is Better Together" title="Connect Groups" />
+      <section className="section white-bg">
+        <div className="section-inner">
+          <div style={{maxWidth:'640px'}}>
+            <p style={{fontSize:'14px', color:'var(--text-mid)', lineHeight:'1.8', marginBottom:'16px'}}>
+              At any and every stage of life, there is a place to connect in community, grow in faith, and serve each other in love. Whether you're new or have been attending our services for years, we challenge you to get involved and grow.
+            </p>
+            <p style={{fontSize:'14px', color:'var(--text-mid)', lineHeight:'1.8', marginBottom:'28px'}}>
+              Connect Groups meet on Sunday evenings and are hosted off campus. Each small group is hosted and/or led by various church members who are passionate about biblical community. Joining a Connect Group is a great way to get connected to the local body.
+            </p>
+            <div style={{background:'var(--teal)', borderRadius:'var(--radius)', padding:'28px', textAlign:'center'}}>
+              <p style={{fontSize:'14px', color:'#fff', marginBottom:'16px', lineHeight:'1.7'}}>Contact the pastors if you are interested in joining a Connect Group!</p>
+              <a href="mailto:csbcfg@gmail.com"><button className="btn-white">Contact Us →</button></a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function VolunteerPage() {
+  const COMMUNITY_CARES = [
+    { name:'Victim Center', desc:'Support victims during the aftermath of a crime — two time periods per month, on-call from home during evenings and weekends.', href:'https://www.thevictimcenter.org/' },
+    { name:'Harmony House', desc:'Services to survivors of domestic violence.', href:'https://www.myharmonyhouse.org/' },
+    { name:'Big Brothers Big Sisters', desc:'Pairs children facing adversity with caring adults for at least a year.', href:'http://www.bigbro.com/' },
+    { name:'Good News Club', desc:'After school program for Fair Grove Schools, teaching children about Christ — two hours per week during school year. Call 417.759.7217 to get involved.' },
+    { name:'CASA', desc:'Advocating for children in foster care — 5-10 hours per month.', href:'http://casaswmo.org/' },
+    { name:'Missouri Baptist Children\'s Home', desc:'Respite care, foster care, and adoption support.', href:'http://www.mbch.org/' },
+    { name:'Foster Adopt Connect / Sammy\'s Window', desc:'Prevention, intervention, and support services for foster families.', href:'https://www.fosteradopt.org/locations/springfield/' },
+    { name:'Ambassadors for Children', desc:'Restoring dignity to local youth in foster care through Kids Closet Boutique, Foster Support, Prom Closet, and Christmas.', href:'https://ccozarks.org/programs/ambassadors-for-children/' },
+    { name:'Cherish Kids', desc:'Raising awareness, offering resources, and providing support for children in crisis locally, statewide, and around the world.', href:'https://adoption.com/cherish-kids-an-organization-making-a-difference/' },
+  ];
+  return (
+    <div>
+      <InnerHero label="Servant Leaders" title="Volunteer Opportunities" />
+      <section className="section white-bg">
+        <div className="section-inner">
+          <p style={{fontSize:'14px', color:'var(--text-mid)', maxWidth:'640px', marginBottom:'40px', lineHeight:'1.8'}}>
+            We serve because God has designed us and called us to do good works. Jesus didn't come to be served, but to serve others (Matthew 20:28). As Christians, our goal is to reflect Him in our everyday lives.
+          </p>
+          <div style={{display:'grid', gap:'16px', gridTemplateColumns:'repeat(auto-fit, minmax(260px, 1fr))', marginBottom:'56px'}}>
+            {[
+              { title:'Greet Team', body:'Parking, greeting, serving coffee, or ushering — help welcome guests and ensure a great experience.' },
+              { title:'CSBC Kids', body:'Volunteer in the nursery or teach in a classroom. Contact our Children\'s Ministry directors to get involved.' },
+              { title:'Mentor', body:'For those established in faith — teach and train others through discipleship, teaching, and preaching with guidance from church leaders.' },
+              { title:'Music & Media', body:'Singers, musicians, and media volunteers serve every week to create engaging, meaningful worship services.' },
+              { title:'Facility', body:'Housekeeping, maintenance, gardening, and other care for our church building. Help is always welcomed!' },
+              { title:'Outreach', body:'Share the gospel locally, nationally, and internationally. Desire to see lives changed? Get involved.' },
+            ].map((v, i) => (
+              <div key={i} style={{background:'var(--gray-bg)', borderRadius:'var(--radius)', padding:'22px', borderLeft:'4px solid var(--teal)'}}>
+                <h4 style={{fontSize:'15px', fontWeight:'800', color:'var(--text-dark)', marginBottom:'8px'}}>{v.title}</h4>
+                <p style={{fontSize:'13px', color:'var(--text-mid)', lineHeight:'1.6'}}>{v.body}</p>
+              </div>
+            ))}
+          </div>
+
+          <p className="section-label">Community Cares</p>
+          <h2 className="section-title">Caring for Kids</h2>
+          <div className="divider"/>
+          <p style={{fontSize:'14px', color:'var(--text-mid)', maxWidth:'640px', marginBottom:'28px', lineHeight:'1.8'}}>
+            As followers of Jesus, we are called to care for and serve the fatherless and abused children in our community. CSBC is helping interested members connect with ministries and organizations who serve orphans and children in need.
+          </p>
+          <div style={{display:'grid', gap:'12px', gridTemplateColumns:'repeat(auto-fit, minmax(260px, 1fr))'}}>
+            {COMMUNITY_CARES.map((c, i) => (
+              <div key={i} style={{background:'var(--gray-bg)', borderRadius:'var(--radius)', padding:'18px'}}>
+                <h4 style={{fontSize:'14px', fontWeight:'800', color:'var(--text-dark)', marginBottom:'6px'}}>{c.name}</h4>
+                <p style={{fontSize:'12px', color:'var(--text-mid)', lineHeight:'1.6', marginBottom: c.href ? '8px' : '0'}}>{c.desc}</p>
+                {c.href && <a href={c.href} target="_blank" rel="noreferrer" style={{fontSize:'11px', fontWeight:'700', color:'var(--teal-dark)', textDecoration:'none'}}>Learn More →</a>}
+              </div>
+            ))}
+          </div>
+          <div style={{marginTop:'36px', textAlign:'center'}}>
+            <a href="mailto:csbcfg@gmail.com"><button className="btn-primary">Volunteer With Us →</button></a>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+// ── RESOURCES SUB-PAGES ────────────────────────────────────────
+
+function WatchMessagesPage() {
+  return (
+    <div>
+      <InnerHero label="Sermons" title="Watch Messages" />
+      <section className="section white-bg">
+        <div className="section-inner">
+          <p style={{fontSize:'14px', color:'var(--text-mid)', maxWidth:'560px', marginBottom:'28px', lineHeight:'1.8'}}>
+            Catch up on recent sermons from our pastors on our YouTube channel. New messages are posted regularly after each Sunday service.
+          </p>
+          <a href="https://www.youtube.com/@csbcfairgrove1594" target="_blank" rel="noreferrer">
+            <button className="btn-primary">Watch on YouTube →</button>
+          </a>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function OnlineBulletinPage() {
+  return (
+    <div>
+      <InnerHero label="Weekly Announcements" title="Online Bulletin" />
+      <section className="section white-bg">
+        <div className="section-inner">
+          <p style={{fontSize:'14px', color:'var(--text-mid)', maxWidth:'560px', marginBottom:'28px', lineHeight:'1.8'}}>
+            View this week's bulletin for announcements, worship notes, upcoming events, and more.
+          </p>
+          <a href="https://www.communitysbc.org/online-bulletin" target="_blank" rel="noreferrer">
+            <button className="btn-primary">View Bulletin →</button>
+          </a>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function CounselingPage() {
+  return (
+    <div>
+      <InnerHero label="Biblical & Professional" title="In-House Counseling" />
+      <section className="section white-bg">
+        <div className="section-inner">
+          <div style={{maxWidth:'640px'}}>
+            <p style={{fontSize:'14px', color:'var(--text-mid)', lineHeight:'1.8', marginBottom:'16px'}}>
+              At CSBC we have in-house counseling available. Our pastors have extensive experience in Christ-centered family, individual, pre-marital, and marital counseling.
+            </p>
+            <p style={{fontSize:'14px', color:'var(--text-mid)', lineHeight:'1.8', marginBottom:'28px'}}>
+              Our Lay Pastor, <strong>Aaron McGuire</strong>, is a Licensed Professional Counselor and the founder and president of McGuire Christian Counseling, with 18 years of clinical therapy experience. Our pastors use a biblical approach to counseling, using the sufficiency of Scripture to address mental health issues.
+            </p>
+            <div style={{background:'var(--gray-bg)', borderRadius:'var(--radius)', padding:'24px', marginBottom:'24px'}}>
+              <p style={{fontSize:'13px', color:'var(--text-mid)', lineHeight:'1.7'}}>If you are interested in this service, please speak to one of our pastors or reach out to us directly.</p>
+            </div>
+            <a href="mailto:csbcfg@gmail.com"><button className="btn-primary">Contact Us →</button></a>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function OnlineGivingPage() {
+  return (
+    <div>
+      <InnerHero label="Secure Giving" title="Online Giving" />
+      <section className="section white-bg">
+        <div className="section-inner">
+          <p style={{fontSize:'14px', color:'var(--text-mid)', maxWidth:'560px', marginBottom:'28px', lineHeight:'1.8'}}>
+            Give securely online through Church Center. Set up one-time or recurring gifts to support the mission of CSBC.
+          </p>
+          <a href="https://www.communitysbc.org/online-giving" target="_blank" rel="noreferrer">
+            <button className="btn-primary">Give Online →</button>
+          </a>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function ChurchCenterPage() {
+  return (
+    <div>
+      <InnerHero label="Member Portal" title="Church Center" />
+      <section className="section white-bg">
+        <div className="section-inner">
+          <p style={{fontSize:'14px', color:'var(--text-mid)', maxWidth:'560px', marginBottom:'28px', lineHeight:'1.8'}}>
+            Church Center is our online platform for giving, directory access, event registration, and more. Log in to access member resources.
+          </p>
+          <a href="https://csbcfg.churchcenter.com" target="_blank" rel="noreferrer">
+            <button className="btn-primary">Go to Church Center →</button>
+          </a>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function MerchShopPage() {
+  return (
+    <div>
+      <InnerHero label="Support CSBC" title="Merch Shop" />
+      <section className="section white-bg">
+        <div className="section-inner">
+          <p style={{fontSize:'14px', color:'var(--text-mid)', maxWidth:'560px', marginBottom:'28px', lineHeight:'1.8'}}>
+            Support the church and represent your CSBC community with official gear.
+          </p>
+          <a href="https://www.communitysbc.org/copy-of-church-center" target="_blank" rel="noreferrer">
+            <button className="btn-primary">Shop Now →</button>
+          </a>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function App() {
+  const [page, setPage] = useState('Home');
+  const handleSetPage = (p) => { setPage(p); window.scrollTo({top:0, behavior:'smooth'}); };
+  const renderPage = () => {
+    switch(page) {
+      case 'Home':                 return <HomePage setPage={handleSetPage}/>;
+      case 'About':                return <AboutPage setPage={handleSetPage}/>;
+      case 'Staff':                return <StaffPage/>;
+      case 'Our Purpose':          return <OurPurposePage/>;
+      case 'Contact':              return <ContactPage/>;
+      case 'What We Believe':      return <WhatWeBelievePage/>;
+      case 'Membership':           return <MembershipPage/>;
+      case 'Service Times':        return <ServiceTimesPage/>;
+      case 'Gospel':               return <GospelPage setPage={handleSetPage}/>;
+      case 'Connect':              return <ConnectPage setPage={handleSetPage}/>;
+      case 'Volunteer Opportunities': return <VolunteerPage/>;
+      case 'Discipleship':         return <DiscipleshipPage/>;
+      case 'Childcare':            return <ChildcarePage/>;
+      case 'Prek-5th Grade':       return <KidsPage/>;
+      case 'Youth':                return <YouthPage/>;
+      case 'Men':                  return <MenPage/>;
+      case 'Women':                return <WomenPage/>;
+      case 'Music':                return <MusicPage/>;
+      case 'Connect Groups':       return <ConnectGroupsPage/>;
+      case 'Missions':             return <MissionsPage/>;
+      case 'Events':               return <EventsPage/>;
+      case 'Resources':            return <ResourcesPage setPage={handleSetPage}/>;
+      case 'Watch Messages':       return <WatchMessagesPage/>;
+      case 'Online Bulletin':      return <OnlineBulletinPage/>;
+      case 'Counseling':           return <CounselingPage/>;
+      case 'Online Giving':        return <OnlineGivingPage/>;
+      case 'Church Center':        return <ChurchCenterPage/>;
+      case 'Merch Shop':           return <MerchShopPage/>;
+      case 'Give':                 return <GivePage/>;
+      default:                     return <HomePage setPage={handleSetPage}/>;
+    }
+  };
+  return (
+    <div>
+      <Header page={page} setPage={handleSetPage}/>
+      <main className="page">{renderPage()}</main>
+      <Footer setPage={handleSetPage}/>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>
